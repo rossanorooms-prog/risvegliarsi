@@ -8,8 +8,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        crema: "#FBF9F4",
-        cremascura: "#F1EBDD",
+        crema: "#FFFFFF",
+        cremascura: "#F4F4F2",
         inchiostro: "#2A231C",
         rosso: "#8C3324",
         rossoscuro: "#6E2A1F",

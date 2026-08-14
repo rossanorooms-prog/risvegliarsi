@@ -33,7 +33,7 @@ export const camere: Camera[] = [
     sottotitolo: "Travi a vista e toni verde acqua",
     accento: "petrolio",
     descrizione:
-      "Una camera raccolta sotto le travi in legno originali, pensata per rallentare: biancheria verde petrolio, luce calda e un bagno privato rivestito in marmo blu-verde.",
+      "Una camera raccolta sotto le travi in legno originali, in un edificio finemente ristrutturato e ammodernato di recente: pensata per rallentare, con biancheria verde petrolio, luce calda e un bagno privato rivestito in marmo blu-verde.",
     dettagli: [
       "Bagno privato con doccia",
       "Smart TV con Netflix, Prime Video e Disney+",
@@ -62,7 +62,7 @@ export const camere: Camera[] = [
     sottotitolo: "Ferro battuto e tessuti color senape",
     accento: "senape",
     descrizione:
-      "Camera dal carattere più rustico ed elegante, con testiera in ferro battuto, biancheria color senape e un bagno privato tutto per sé.",
+      "Camera dal carattere più rustico ed elegante, con testiera in ferro battuto, biancheria color senape e un bagno privato tutto per sé, in una struttura recentemente restaurata che unisce con cura elementi antichi e comfort moderni.",
     dettagli: [
       "Bagno privato con doccia",
       "Smart TV",
@@ -124,3 +124,18 @@ export const cosaFare: Meta[] = [
     testo: "Piatti della tradizione silana e calabrese nei ristoranti e trattorie del centro.",
   },
 ];
+
+// ============================================================
+// RECENSIONI — nessuna recensione reale trovata online al momento
+// (struttura appena aperta). Aggiungi qui le recensioni vere man
+// mano che arrivano da Google, Booking, Airbnb ecc. Esempio:
+// { nome: "Marco", fonte: "Google", testo: "...", valutazione: 5 }
+// ============================================================
+export type Recensione = {
+  nome: string;
+  fonte: string;
+  testo: string;
+  valutazione: number; // 1-5
+};
+
+export const recensioni: Recensione[] = [];

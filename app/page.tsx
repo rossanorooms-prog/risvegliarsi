@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { camere, servizi, site, galleriaEsterni } from "@/data/config";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Reviews from "@/components/Reviews";
 
 export default function HomePage() {
   return (
@@ -59,6 +60,11 @@ export default function HomePage() {
           Due camere con bagno privato, parcheggio riservato e la cura dei dettagli
           che fa la differenza in un soggiorno.
         </p>
+        <p className="mx-auto mt-4 max-w-xl font-body text-inchiostro/70">
+          La struttura è stata finemente ristrutturata e ammodernata di recente,
+          in un equilibrio curato tra elementi antichi restaurati e comfort
+          moderni.
+        </p>
       </section>
 
       {/* CAMERE */}
@@ -115,6 +121,9 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* RECENSIONI */}
+      <Reviews />
 
       {/* CTA FINALE */}
       <section className="bg-inchiostro py-24 text-center text-crema">
