@@ -29,7 +29,7 @@ export type Camera = {
 export const camere: Camera[] = [
   {
     slug: "verde",
-    nome: "Camera Petrolio",
+    nome: "Camera Acquamarina",
     sottotitolo: "Travi a vista e toni verde acqua",
     accento: "petrolio",
     descrizione:
@@ -41,7 +41,7 @@ export const camere: Camera[] = [
       "Aria condizionata",
       "Asciugacapelli",
     ],
-    copertina: { src: "/images/camera-verde/letto-2.jpg", alt: "Letto della Camera Petrolio con biancheria verde e asciugamani preparati" },
+    copertina: { src: "/images/camera-verde/letto-2.jpg", alt: "Letto della Camera Acquamarina con biancheria verde e asciugamani preparati" },
     galleria: [
       { src: "/images/camera-verde/letto-2.jpg", alt: "Letto con biancheria verde petrolio e asciugamani preparati" },
       { src: "/images/camera-verde/camera-vista.jpg", alt: "Vista della camera con travi in legno" },

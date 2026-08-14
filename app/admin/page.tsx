@@ -11,6 +11,7 @@ export default function AdminPage() {
   const [password, setPassword] = useState("");
   const [errore, setErrore] = useState("");
   const [occupazioni, setOccupazioni] = useState<Occupazioni>({});
+  const [erroreSalvataggio, setErroreSalvataggio] = useState("");
 
   useEffect(() => {
     fetch("/api/admin-auth")
@@ -48,6 +49,8 @@ export default function AdminPage() {
   }
 
   async function toggle(cameraSlug: string, dataISO: string, nuovoStato: boolean) {
+    setErroreSalvataggio("");
+
     // aggiornamento ottimistico
     setOccupazioni((prev) => {
       const copia = { ...prev, [cameraSlug]: { ...(prev[cameraSlug] || {}) } };
@@ -56,15 +59,24 @@ export default function AdminPage() {
       return copia;
     });
 
-    const res = await fetch("/api/calendar", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ camera: cameraSlug, data: dataISO, occupata: nuovoStato }),
-    });
-    if (!res.ok) {
-      // in caso di errore ricarico lo stato reale
-      const check = await fetch("/api/calendar").then((r) => r.json());
-      if (check.ok) setOccupazioni(check.data);
+    try {
+      const res = await fetch("/api/calendar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ camera: cameraSlug, data: dataISO, occupata: nuovoStato }),
+      });
+      const body = await res.json().catch(() => null);
+
+      if (!res.ok || !body?.ok) {
+        setErroreSalvataggio(
+          body?.error || "Non sono riuscito a salvare la modifica. Riprova tra poco."
+        );
+        // ripristino lo stato reale dal server
+        const check = await fetch("/api/calendar").then((r) => r.json());
+        if (check.ok) setOccupazioni(check.data);
+      }
+    } catch {
+      setErroreSalvataggio("Errore di connessione. Controlla la rete e riprova.");
     }
   }
 
@@ -111,6 +123,12 @@ export default function AdminPage() {
       <p className="mt-3 font-body text-inchiostro/60">
         Clicca su un giorno per segnarlo come occupato o libero. Le modifiche si salvano automaticamente.
       </p>
+
+      {erroreSalvataggio && (
+        <div className="mt-6 rounded-md border border-rosso/30 bg-rosso/5 px-4 py-3 font-body text-sm text-rosso">
+          {erroreSalvataggio}
+        </div>
+      )}
 
       <div className="mt-10 grid gap-10 sm:grid-cols-2">
         {camere.map((c) => {
