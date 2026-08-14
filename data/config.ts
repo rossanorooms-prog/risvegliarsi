@@ -10,6 +10,7 @@ export const site = {
   whatsappNumero: "393312543575", // formato internazionale senza + né spazi
   whatsappMessaggioDefault:
     "Ciao! Vorrei avere informazioni sulla disponibilità a Risvegliarsi.",
+  email: "info@risvegliarsi.it", // aggiorna con l'indirizzo reale
 };
 
 export type Foto = { src: string; alt: string };
@@ -32,7 +33,7 @@ export const camere: Camera[] = [
     sottotitolo: "Travi a vista e toni verde acqua",
     accento: "petrolio",
     descrizione:
-      "Una camera raccolta sotto le travi in legno originali, con biancheria verde petrolio e bagno privato rivestito in marmo blu-verde.",
+      "Una camera raccolta sotto le travi in legno originali, pensata per rallentare: biancheria verde petrolio, luce calda e un bagno privato rivestito in marmo blu-verde.",
     dettagli: [
       "Bagno privato con doccia",
       "Smart TV con Netflix, Prime Video e Disney+",
@@ -40,11 +41,11 @@ export const camere: Camera[] = [
       "Aria condizionata",
       "Asciugacapelli",
     ],
-    copertina: { src: "/images/camera-verde/camera-vista.jpg", alt: "Vista della Camera Petrolio con travi a vista" },
+    copertina: { src: "/images/camera-verde/letto-2.jpg", alt: "Letto della Camera Petrolio con biancheria verde e asciugamani preparati" },
     galleria: [
+      { src: "/images/camera-verde/letto-2.jpg", alt: "Letto con biancheria verde petrolio e asciugamani preparati" },
       { src: "/images/camera-verde/camera-vista.jpg", alt: "Vista della camera con travi in legno" },
-      { src: "/images/camera-verde/letto-1.jpg", alt: "Letto matrimoniale con biancheria verde petrolio" },
-      { src: "/images/camera-verde/letto-2.jpg", alt: "Dettaglio del letto con asciugamani preparati" },
+      { src: "/images/camera-verde/letto-1.jpg", alt: "Letto matrimoniale, dettaglio" },
       { src: "/images/camera-verde/dettaglio-luce.jpg", alt: "Dettaglio luce calda in camera" },
       { src: "/images/camera-verde/tv.jpg", alt: "Smart TV a muro e appendiabiti" },
       { src: "/images/camera-verde/ingresso.jpg", alt: "Ingresso della camera" },
@@ -61,7 +62,7 @@ export const camere: Camera[] = [
     sottotitolo: "Ferro battuto e tessuti color senape",
     accento: "senape",
     descrizione:
-      "Camera dal carattere più rustico, con testiera in ferro battuto, biancheria color senape e bagno privato dedicato.",
+      "Camera dal carattere più rustico ed elegante, con testiera in ferro battuto, biancheria color senape e un bagno privato tutto per sé.",
     dettagli: [
       "Bagno privato con doccia",
       "Smart TV",
@@ -69,10 +70,10 @@ export const camere: Camera[] = [
       "Aria condizionata",
       "Scrivania",
     ],
-    copertina: { src: "/images/camera-senape/camera-vista.jpg", alt: "Vista della Camera Senape" },
+    copertina: { src: "/images/camera-senape/letto-1.jpg", alt: "Letto della Camera Senape con testiera in ferro battuto" },
     galleria: [
+      { src: "/images/camera-senape/letto-1.jpg", alt: "Letto con testiera in ferro battuto e biancheria color senape" },
       { src: "/images/camera-senape/camera-vista.jpg", alt: "Vista della Camera Senape con TV e scrivania" },
-      { src: "/images/camera-senape/letto-1.jpg", alt: "Letto con testiera in ferro battuto" },
       { src: "/images/camera-senape/letto-2.jpg", alt: "Dettaglio biancheria color senape" },
       { src: "/images/camera-senape/frigobar.jpg", alt: "Frigobar rifornito in camera" },
       { src: "/images/camera-senape/bagno-doccia.jpg", alt: "Doccia del bagno privato" },
@@ -96,6 +97,30 @@ export const galleriaComune: Foto[] = [
 ];
 
 export const galleriaEsterni: Foto[] = [
-  { src: "/images/esterni/facciata-notte-1.jpg", alt: "Facciata esterna di Risvegliarsi di sera" },
-  { src: "/images/esterni/facciata-notte-2.webp", alt: "Ingresso principale di Risvegliarsi" },
+  { src: "/images/esterni/facciata-notte-2.webp", alt: "Ingresso principale di Risvegliarsi di sera" },
+  { src: "/images/esterni/facciata-notte-1.jpg", alt: "Facciata esterna di Risvegliarsi" },
+];
+
+// ============================================================
+// COSA FARE A LONGOBUCCO — contenuti da rifinire in seguito
+// ============================================================
+export type Meta = { titolo: string; testo: string };
+
+export const cosaFare: Meta[] = [
+  {
+    titolo: "Il borgo storico",
+    testo: "Vicoli, scalinate in pietra e architettura tipica della Sila Greca da scoprire a piedi, con calma.",
+  },
+  {
+    titolo: "Il Parco Nazionale della Sila",
+    testo: "Longobucco è una delle porte d'accesso alla Sila: boschi, laghi e sentieri di trekking a breve distanza.",
+  },
+  {
+    titolo: "Artigianato tessile locale",
+    testo: "Il paese ha una lunga tradizione di tessitura artigianale: vale la pena cercare le botteghe storiche.",
+  },
+  {
+    titolo: "Prodotti tipici e gastronomia",
+    testo: "Piatti della tradizione silana e calabrese nei ristoranti e trattorie del centro.",
+  },
 ];

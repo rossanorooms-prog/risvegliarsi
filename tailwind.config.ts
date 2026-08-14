@@ -18,6 +18,8 @@ const config: Config = {
         senape: "#B98A2E",
         senapescura: "#93701F",
         legno: "#8A6A4C",
+        oro: "#B08D45",
+        orochiaro: "#D4B876",
       },
       fontFamily: {
         display: ["var(--font-display)", "serif"],
