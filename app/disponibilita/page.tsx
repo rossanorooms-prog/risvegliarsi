@@ -7,6 +7,21 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 
 type Occupazioni = Record<string, Record<string, boolean>>;
 
+function toISO(d: Date) {
+  return d.toISOString().slice(0, 10);
+}
+
+function nottiLibereProssimi30(occupateCamera: Record<string, boolean> | undefined) {
+  const oggi = new Date();
+  let libere = 0;
+  for (let i = 0; i < 30; i++) {
+    const d = new Date(oggi);
+    d.setDate(oggi.getDate() + i);
+    if (!occupateCamera?.[toISO(d)]) libere++;
+  }
+  return libere;
+}
+
 export default function DisponibilitaPage() {
   const [occupazioni, setOccupazioni] = useState<Occupazioni>({});
   const [caricato, setCaricato] = useState(false);
@@ -27,7 +42,10 @@ export default function DisponibilitaPage() {
         Disponibilità
       </h1>
       <p className="mx-auto mt-4 max-w-xl text-center font-body text-inchiostro/70">
-        Le date evidenziate sono occupate. Per prenotare le date libere scrivici su WhatsApp.
+        Verde = libera, rosso = occupata. Per prenotare le date libere scrivici su WhatsApp.
+      </p>
+      <p className="mx-auto mt-3 max-w-xl text-center font-body text-sm uppercase tracking-widest2 text-rosso">
+        Affrettati, le camere si riempiono in fretta
       </p>
 
       {!caricato && (
@@ -38,11 +56,18 @@ export default function DisponibilitaPage() {
         <div className="mt-14 grid gap-10 sm:grid-cols-2">
           {camere.map((c) => {
             const date = new Set(Object.keys(occupazioni[c.slug] || {}));
-            const accentClass = c.accento === "petrolio" ? "bg-petrolio" : "bg-senape";
+            const libere = nottiLibereProssimi30(occupazioni[c.slug]);
             return (
               <div key={c.slug}>
-                <p className="mb-3 font-display text-2xl text-inchiostro">{c.nome}</p>
-                <CalendarMonth occupate={date} accentClass={accentClass} />
+                <div className="mb-3 flex items-center justify-between">
+                  <p className="font-display text-2xl text-inchiostro">{c.nome}</p>
+                  {libere <= 10 && (
+                    <span className="rounded-full bg-rosso/10 px-3 py-1 font-body text-xs uppercase tracking-wide text-rosso">
+                      Solo {libere} notti libere nei prossimi 30 giorni
+                    </span>
+                  )}
+                </div>
+                <CalendarMonth occupate={date} />
               </div>
             );
           })}

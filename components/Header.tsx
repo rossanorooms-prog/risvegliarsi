@@ -9,9 +9,8 @@ const links = [
   { href: "/camere", label: "Le camere" },
   { href: "/servizi", label: "Servizi" },
   { href: "/disponibilita", label: "Disponibilità" },
-  { href: "/longobucco", label: "Cosa fare" },
+  { href: "/longobucco", label: "Cosa fare a Longobucco" },
   { href: "/contatti", label: "Contatti" },
-  { href: "/admin", label: "Area amministratore" },
 ];
 
 export default function Header() {
@@ -25,31 +24,38 @@ export default function Header() {
           <span className="font-display text-2xl tracking-wide text-inchiostro">{site.nome}</span>
         </Link>
 
-        <button
-          onClick={() => setAperto((v) => !v)}
-          aria-label={aperto ? "Chiudi menu" : "Apri menu"}
-          aria-expanded={aperto}
-          className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full transition hover:bg-inchiostro/5"
-        >
-          <span className={`block h-px w-6 bg-inchiostro transition-transform ${aperto ? "translate-y-[7px] rotate-45" : ""}`} />
-          <span className={`block h-px w-6 bg-inchiostro transition-opacity ${aperto ? "opacity-0" : ""}`} />
-          <span className={`block h-px w-6 bg-inchiostro transition-transform ${aperto ? "-translate-y-[7px] -rotate-45" : ""}`} />
-        </button>
+        <div className="flex items-center gap-6">
+          <nav className="hidden gap-7 font-body text-sm uppercase tracking-widest2 text-inchiostro/80 md:flex">
+            {links.map((l) => (
+              <Link key={l.href} href={l.href} className="transition-colors hover:text-rosso">
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+
+          <button
+            onClick={() => setAperto((v) => !v)}
+            aria-label={aperto ? "Chiudi menu" : "Apri menu"}
+            aria-expanded={aperto}
+            className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full transition hover:bg-inchiostro/5"
+          >
+            <span className={`block h-px w-6 bg-inchiostro transition-transform ${aperto ? "translate-y-[7px] rotate-45" : ""}`} />
+            <span className={`block h-px w-6 bg-inchiostro transition-opacity ${aperto ? "opacity-0" : ""}`} />
+            <span className={`block h-px w-6 bg-inchiostro transition-transform ${aperto ? "-translate-y-[7px] -rotate-45" : ""}`} />
+          </button>
+        </div>
       </div>
 
       {aperto && (
         <div className="border-t border-oro/20 bg-crema">
           <nav className="mx-auto flex max-w-6xl flex-col px-5 py-4 md:px-8">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setAperto(false)}
-                className="border-b border-inchiostro/5 py-3 font-body text-sm uppercase tracking-widest2 text-inchiostro/80 transition-colors last:border-none hover:text-rosso"
-              >
-                {l.label}
-              </Link>
-            ))}
+            <Link
+              href="/admin"
+              onClick={() => setAperto(false)}
+              className="py-3 font-body text-sm uppercase tracking-widest2 text-inchiostro/80 transition-colors hover:text-rosso"
+            >
+              Area amministratore
+            </Link>
           </nav>
         </div>
       )}

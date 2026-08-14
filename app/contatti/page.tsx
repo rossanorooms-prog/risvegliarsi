@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Contatti — Risvegliarsi" };
 
 export default function ContattiPage() {
-  const mapsQuery = encodeURIComponent(`${site.nome} ${site.comune} ${site.provincia}`);
+  const mapsQuery = encodeURIComponent(`${site.comune}, ${site.provincia}, Italia`);
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16 text-center">

@@ -18,12 +18,10 @@ export default function CalendarMonth({
   occupate,
   editabile = false,
   onToggle,
-  accentClass = "bg-rosso",
 }: {
   occupate: Set<string>;
   editabile?: boolean;
   onToggle?: (dataISO: string, nuovoStato: boolean) => void;
-  accentClass?: string;
 }) {
   const oggi = new Date();
   const [anno, setAnno] = useState(oggi.getFullYear());
@@ -85,10 +83,11 @@ export default function CalendarMonth({
           const occupata = occupate.has(dataISO);
           const passato = dataISO < oggiISO;
 
-          const base = "relative aspect-square rounded-md font-body text-sm flex items-center justify-center transition-colors";
-          let stile = "text-inchiostro/70 hover:bg-inchiostro/5";
-          if (occupata) stile = `${accentClass} text-white`;
-          if (passato) stile += " opacity-30";
+          const base = "relative aspect-square rounded-md font-body text-sm flex items-center justify-center transition-colors border";
+          let stile = occupata
+            ? "bg-red-100 border-red-300 text-red-700"
+            : "bg-green-50 border-green-200 text-green-700 hover:bg-green-100";
+          if (passato) stile += " opacity-40";
 
           if (editabile) {
             return (
@@ -110,6 +109,15 @@ export default function CalendarMonth({
             </div>
           );
         })}
+      </div>
+
+      <div className="mt-4 flex items-center justify-center gap-5 font-body text-xs text-inchiostro/50">
+        <span className="flex items-center gap-1.5">
+          <span className="h-3 w-3 rounded-sm border border-green-300 bg-green-50" /> Libera
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-3 w-3 rounded-sm border border-red-300 bg-red-100" /> Occupata
+        </span>
       </div>
     </div>
   );

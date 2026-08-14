@@ -133,14 +133,12 @@ export default function AdminPage() {
       <div className="mt-10 grid gap-10 sm:grid-cols-2">
         {camere.map((c) => {
           const date = new Set(Object.keys(occupazioni[c.slug] || {}));
-          const accentClass = c.accento === "petrolio" ? "bg-petrolio" : "bg-senape";
           return (
             <div key={c.slug}>
               <p className="mb-3 font-display text-2xl text-inchiostro">{c.nome}</p>
               <CalendarMonth
                 occupate={date}
                 editabile
-                accentClass={accentClass}
                 onToggle={(dataISO, nuovoStato) => toggle(c.slug, dataISO, nuovoStato)}
               />
             </div>
