@@ -18,15 +18,19 @@ export default function ContattiPage() {
       <p className="mx-auto mt-8 font-display text-2xl italic text-inchiostro">
         Ti accoglieranno i titolari
       </p>
-      <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+      <div className="mt-6 flex flex-wrap items-start justify-center gap-8">
         {titolari.map((t) => (
-          <WhatsAppButton
-            key={t.nome}
-            fixed={false}
-            numero={t.whatsappNumero}
-            label={t.nome}
-            testoSempreVisibile
-          />
+          <div key={t.nome} className="flex flex-col items-center gap-2">
+            <WhatsAppButton
+              fixed={false}
+              numero={t.whatsappNumero}
+              label={t.nome}
+              testoSempreVisibile
+            />
+            <p className="font-body text-xs text-inchiostro/50">
+              +{t.whatsappNumero.replace(/^39/, "39 ")}
+            </p>
+          </div>
         ))}
       </div>
 
