@@ -39,9 +39,10 @@ export default function ContattiPage() {
       <h2 className="mt-10 font-display text-3xl text-inchiostro">La posizione</h2>
       <p className="mx-auto mt-4 max-w-md font-body text-inchiostro/70">
         Siamo lungo la strada che porta al centro del paese, a soli 50 metri
-        dalla piazza: notti tranquille e allo stesso tempo tutto a due passi.
-        Facile da trovare — tra i B&amp;B più moderni del paese. Basta arrivare,
-        poggiare le valigie: il check-in è immediato.
+        dalla piazza (praticamente di fronte al comune): notti tranquille e
+        allo stesso tempo tutto a due passi. Facile da trovare — tra i B&amp;B
+        più moderni del paese. Basta arrivare, poggiare le valigie: il
+        check-in è immediato.
       </p>
 
       <div className="mt-14 overflow-hidden rounded-2xl border border-inchiostro/10">
