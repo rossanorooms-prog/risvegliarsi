@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="mt-8 grid gap-8 font-body text-sm text-crema/70 sm:grid-cols-3">
           <div>
             <p className="text-crema/40">Dove siamo</p>
-            <p className="mt-1">{site.comune} ({site.provincia})</p>
+            <p className="mt-1">{site.indirizzo}</p>
           </div>
           <div>
             <p className="text-crema/40">Contatti</p>

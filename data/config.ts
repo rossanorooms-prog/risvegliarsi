@@ -11,6 +11,7 @@ export const site = {
   whatsappMessaggioDefault:
     "Ciao! Vorrei avere informazioni sulla disponibilità a Risvegliarsi.",
   email: "info@risvegliarsi.it", // aggiorna con l'indirizzo reale
+  indirizzo: "Via Mazzini 43, Longobucco (CS)",
 };
 
 export type Foto = { src: string; alt: string };
@@ -29,7 +30,7 @@ export type Camera = {
 export const camere: Camera[] = [
   {
     slug: "verde",
-    nome: "Camera Acquamarina",
+    nome: "Alba",
     sottotitolo: "Travi a vista e toni verde acqua",
     accento: "petrolio",
     descrizione:
@@ -41,7 +42,7 @@ export const camere: Camera[] = [
       "Aria condizionata",
       "Asciugacapelli",
     ],
-    copertina: { src: "/images/camera-verde/letto-2.jpg", alt: "Letto della Camera Acquamarina con biancheria verde e asciugamani preparati" },
+    copertina: { src: "/images/camera-verde/letto-2.jpg", alt: "Letto della camera Alba con biancheria verde e asciugamani preparati" },
     galleria: [
       { src: "/images/camera-verde/letto-2.jpg", alt: "Letto con biancheria verde petrolio e asciugamani preparati" },
       { src: "/images/camera-verde/camera-vista.jpg", alt: "Vista della camera con travi in legno" },
@@ -58,7 +59,7 @@ export const camere: Camera[] = [
   },
   {
     slug: "senape",
-    nome: "Camera Senape",
+    nome: "Tramonto",
     sottotitolo: "Ferro battuto e tessuti color senape",
     accento: "senape",
     descrizione:
@@ -70,10 +71,10 @@ export const camere: Camera[] = [
       "Aria condizionata",
       "Scrivania",
     ],
-    copertina: { src: "/images/camera-senape/letto-1.jpg", alt: "Letto della Camera Senape con testiera in ferro battuto" },
+    copertina: { src: "/images/camera-senape/letto-1.jpg", alt: "Letto della camera Tramonto con testiera in ferro battuto" },
     galleria: [
       { src: "/images/camera-senape/letto-1.jpg", alt: "Letto con testiera in ferro battuto e biancheria color senape" },
-      { src: "/images/camera-senape/camera-vista.jpg", alt: "Vista della Camera Senape con TV e scrivania" },
+      { src: "/images/camera-senape/camera-vista.jpg", alt: "Vista della camera Tramonto con TV e scrivania" },
       { src: "/images/camera-senape/letto-2.jpg", alt: "Dettaglio biancheria color senape" },
       { src: "/images/camera-senape/frigobar.jpg", alt: "Frigobar rifornito in camera" },
       { src: "/images/camera-senape/bagno-doccia.jpg", alt: "Doccia del bagno privato" },
@@ -84,7 +85,8 @@ export const camere: Camera[] = [
 export const servizi = [
   { titolo: "Parcheggio privato", testo: "Posto auto riservato agli ospiti, comodo per chi arriva in macchina a Longobucco." },
   { titolo: "Bagno privato", testo: "Ogni camera ha il proprio bagno con doccia, non condiviso con altri ospiti." },
-  { titolo: "Colazione in camera", testo: "Macchina Dolce Gusto, toast, marmellate e Nutella a disposizione." },
+  { titolo: "Colazione in camera", testo: "Dolce o salata, su richiesta. Macchina Dolce Gusto, toast, marmellate e Nutella a disposizione." },
+  { titolo: "Check-in immediato", testo: "Basta poggiare le valigie: check-in rapido, senza attese." },
   { titolo: "Smart TV", testo: "Netflix, Prime Video, Disney+ e canali in streaming." },
   { titolo: "Aria condizionata", testo: "Climatizzatore con telecomando dedicato in ogni camera." },
   { titolo: "Wi-Fi", testo: "Connessione internet disponibile in tutta la struttura." },

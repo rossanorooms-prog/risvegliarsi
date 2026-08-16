@@ -25,6 +25,7 @@ export default function Header() {
         </Link>
 
         <div className="flex items-center gap-6">
+          {/* Nav orizzontale: visibile solo da tablet in su */}
           <nav className="hidden gap-7 font-body text-sm uppercase tracking-widest2 text-inchiostro/80 md:flex">
             {links.map((l) => (
               <Link key={l.href} href={l.href} className="transition-colors hover:text-rosso">
@@ -33,6 +34,8 @@ export default function Header() {
             ))}
           </nav>
 
+          {/* Su desktop: apre solo l'accesso amministratore.
+              Su mobile: è l'unico modo di navigare, quindi contiene tutto. */}
           <button
             onClick={() => setAperto((v) => !v)}
             aria-label={aperto ? "Chiudi menu" : "Apri menu"}
@@ -49,6 +52,17 @@ export default function Header() {
       {aperto && (
         <div className="border-t border-oro/20 bg-crema">
           <nav className="mx-auto flex max-w-6xl flex-col px-5 py-4 md:px-8">
+            {/* Su mobile mostriamo anche i link principali, dato che la nav orizzontale è nascosta */}
+            {links.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setAperto(false)}
+                className="border-b border-inchiostro/5 py-3 font-body text-sm uppercase tracking-widest2 text-inchiostro/80 transition-colors md:hidden hover:text-rosso"
+              >
+                {l.label}
+              </Link>
+            ))}
             <Link
               href="/admin"
               onClick={() => setAperto(false)}

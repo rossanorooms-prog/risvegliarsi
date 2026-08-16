@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Contatti — Risvegliarsi" };
 
 export default function ContattiPage() {
-  const mapsQuery = encodeURIComponent(`${site.comune}, ${site.provincia}, Italia`);
+  const mapsQuery = encodeURIComponent(site.indirizzo);
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16 text-center">
@@ -19,6 +19,16 @@ export default function ContattiPage() {
         <WhatsAppButton fixed={false} />
       </div>
 
+      <div className="mx-auto mt-16 h-px w-14 bg-oro/50" />
+
+      <h2 className="mt-10 font-display text-3xl text-inchiostro">La posizione</h2>
+      <p className="mx-auto mt-4 max-w-md font-body text-inchiostro/70">
+        Siamo lungo la strada che porta al centro del paese, a soli 50 metri
+        dalla piazza: notti tranquille e allo stesso tempo tutto a due passi.
+        Facile da trovare — tra i B&amp;B più moderni del paese. Basta arrivare,
+        poggiare le valigie: il check-in è immediato.
+      </p>
+
       <div className="mt-14 overflow-hidden rounded-2xl border border-inchiostro/10">
         <iframe
           title="Mappa"
@@ -29,7 +39,7 @@ export default function ContattiPage() {
       </div>
 
       <p className="mt-6 font-body text-sm text-inchiostro/60">
-        {site.comune} ({site.provincia})
+        {site.indirizzo}
       </p>
     </div>
   );
