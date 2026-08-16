@@ -14,6 +14,13 @@ export const site = {
   indirizzo: "Via Mazzini 43, Longobucco (CS)",
 };
 
+export type Titolare = { nome: string; whatsappNumero: string };
+
+export const titolari: Titolare[] = [
+  { nome: "Maurizio", whatsappNumero: "393312543575" },
+  { nome: "Maria Carmela", whatsappNumero: "393331124250" },
+];
+
 export type Foto = { src: string; alt: string };
 
 export type Camera = {

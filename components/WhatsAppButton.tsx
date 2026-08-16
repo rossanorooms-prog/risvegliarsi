@@ -4,13 +4,15 @@ export default function WhatsAppButton({
   messaggio,
   label = "Scrivici su WhatsApp",
   fixed = true,
+  numero,
 }: {
   messaggio?: string;
   label?: string;
   fixed?: boolean;
+  numero?: string;
 }) {
   const testo = encodeURIComponent(messaggio || site.whatsappMessaggioDefault);
-  const href = `https://wa.me/${site.whatsappNumero}?text=${testo}`;
+  const href = `https://wa.me/${numero || site.whatsappNumero}?text=${testo}`;
 
   return (
     <a

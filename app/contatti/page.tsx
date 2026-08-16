@@ -1,4 +1,4 @@
-import { site } from "@/data/config";
+import { site, titolari } from "@/data/config";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import type { Metadata } from "next";
 
@@ -15,8 +15,18 @@ export default function ContattiPage() {
         disponibilità reale delle camere e ti aiutiamo a organizzare l&apos;arrivo.
       </p>
 
-      <div className="mt-8 flex justify-center">
-        <WhatsAppButton fixed={false} />
+      <p className="mx-auto mt-8 font-display text-2xl italic text-inchiostro">
+        Ti accoglieranno i titolari
+      </p>
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+        {titolari.map((t) => (
+          <WhatsAppButton
+            key={t.nome}
+            fixed={false}
+            numero={t.whatsappNumero}
+            label={t.nome}
+          />
+        ))}
       </div>
 
       <div className="mx-auto mt-16 h-px w-14 bg-oro/50" />
