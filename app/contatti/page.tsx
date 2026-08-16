@@ -25,6 +25,7 @@ export default function ContattiPage() {
             fixed={false}
             numero={t.whatsappNumero}
             label={t.nome}
+            testoSempreVisibile
           />
         ))}
       </div>
