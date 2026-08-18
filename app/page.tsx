@@ -3,19 +3,21 @@ import Link from "next/link";
 import { camere, servizi, site, galleriaEsterni } from "@/data/config";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Reviews from "@/components/Reviews";
+import HeroSlideshow from "@/components/HeroSlideshow";
+
+// Foto generali per la hero: facciate e ingressi, escludendo i primi piani
+// molto tecnici (comignolo, mensole in cotto) che rendono meglio nella
+// galleria dedicata che come prima immagine del sito.
+const fotoHero = galleriaEsterni.filter((f) =>
+  ["facciata-giorno", "facciata-notte", "ingresso-1", "ingresso-2"].some((k) => f.src.includes(k))
+);
 
 export default function HomePage() {
   return (
     <>
       {/* HERO */}
       <section className="relative flex h-[96vh] min-h-[620px] items-end justify-center overflow-hidden">
-        <Image
-          src={galleriaEsterni[0].src}
-          alt={galleriaEsterni[0].alt}
-          fill
-          priority
-          className="object-cover"
-        />
+        <HeroSlideshow foto={fotoHero} />
         <div className="absolute inset-0 bg-gradient-to-t from-inchiostro via-inchiostro/40 to-inchiostro/10" />
         <div className="relative z-10 flex flex-col items-center px-6 pb-20 text-center text-crema">
           <Image

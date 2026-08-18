@@ -29,7 +29,13 @@ export default function GalleryTabs({ categorie }: { categorie: GalleriaCategori
       </div>
 
       <div className="mt-10">
-        <Gallery foto={categoriaAttiva.foto} />
+        <Gallery
+          key={categoriaAttiva.slug}
+          foto={categoriaAttiva.foto}
+          direzione={
+            categoriaAttiva.slug === "alba" ? "sinistra" : categoriaAttiva.slug === "tramonto" ? "destra" : "su"
+          }
+        />
       </div>
     </div>
   );

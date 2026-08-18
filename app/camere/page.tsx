@@ -37,7 +37,7 @@ export default function CamerePage() {
             </ul>
 
             <div className="mt-8">
-              <Gallery foto={c.galleria} />
+              <Gallery foto={c.galleria} direzione={c.slug === "verde" ? "sinistra" : "destra"} />
             </div>
           </section>
         );
