@@ -19,3 +19,28 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Animazione d'ingresso per il contenuto della hero (logo, titolo, bottoni) */
+@keyframes entra-dal-basso {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-entra {
+  animation: entra-dal-basso 900ms ease-out both;
+}
+
+/* Nasconde la scrollbar del carosello camere ma lascia lo scroll con il dito */
+.carosello-nascondi-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.carosello-nascondi-scrollbar::-webkit-scrollbar {
+  display: none;
+}

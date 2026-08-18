@@ -54,9 +54,29 @@ export default function ContattiPage() {
         />
       </div>
 
-      <p className="mt-6 font-body text-sm text-inchiostro/60">
-        {site.indirizzo}
-      </p>
+      <a
+        href={`https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-6 inline-block font-body text-sm text-inchiostro/60 underline decoration-inchiostro/20 underline-offset-4 hover:text-rosso"
+      >
+        {site.indirizzo} — apri indicazioni stradali
+      </a>
+
+      <div className="mx-auto mt-14 h-px w-14 bg-oro/50" />
+
+      <div className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 font-body text-inchiostro/70">
+        {titolari.map((t) => (
+          <a
+            key={t.nome}
+            href={`tel:+${t.whatsappNumero}`}
+            className="hover:text-rosso"
+          >
+            <span className="font-display text-lg text-inchiostro">{t.nome}</span>
+            <span className="block text-sm">+{t.whatsappNumero.replace(/^39/, "39 ")}</span>
+          </a>
+        ))}
+      </div>
     </div>
   );
 }

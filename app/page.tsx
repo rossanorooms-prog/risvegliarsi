@@ -4,6 +4,7 @@ import { camere, servizi, site, galleriaEsterni } from "@/data/config";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Reviews from "@/components/Reviews";
 import HeroSlideshow from "@/components/HeroSlideshow";
+import RoomCarousel from "@/components/RoomCarousel";
 
 // Foto generali per la hero: facciate e ingressi, escludendo i primi piani
 // molto tecnici (comignolo, mensole in cotto) che rendono meglio nella
@@ -25,17 +26,29 @@ export default function HomePage() {
             alt={site.nome}
             width={96}
             height={96}
-            className="mb-6"
+            className="hero-entra mb-6"
+            style={{ animationDelay: "0ms" }}
           />
-          <p className="font-body text-xs uppercase tracking-widest2 text-orochiaro">
+          <p
+            className="hero-entra font-body text-xs uppercase tracking-widest2 text-orochiaro"
+            style={{ animationDelay: "150ms" }}
+          >
             {site.comune} · {site.provincia}
           </p>
-          <h1 className="mt-4 font-display text-6xl tracking-wide sm:text-7xl">{site.nome}</h1>
-          <div className="mt-4 h-px w-20 bg-oro/60" />
-          <p className="mt-4 font-body text-sm uppercase tracking-widest2 text-crema/80">
+          <h1
+            className="hero-entra mt-4 font-display text-6xl tracking-wide sm:text-7xl"
+            style={{ animationDelay: "280ms" }}
+          >
+            {site.nome}
+          </h1>
+          <div className="hero-entra mt-4 h-px w-20 bg-oro/60" style={{ animationDelay: "450ms" }} />
+          <p
+            className="hero-entra mt-4 font-body text-sm uppercase tracking-widest2 text-crema/80"
+            style={{ animationDelay: "550ms" }}
+          >
             {site.claim}
           </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
+          <div className="hero-entra mt-10 flex flex-wrap justify-center gap-4" style={{ animationDelay: "700ms" }}>
             <Link
               href="/camere"
               className="rounded-full bg-oro px-7 py-3 font-body text-sm uppercase tracking-widest2 text-inchiostro transition hover:bg-orochiaro"
@@ -82,24 +95,22 @@ export default function HomePage() {
             {camere.map((c) => {
               const accento = c.accento === "petrolio" ? "border-petrolio" : "border-senape";
               return (
-                <Link
+                <div
                   key={c.slug}
-                  href={`/camere#${c.slug}`}
-                  className={`group block overflow-hidden rounded-sm border-t-2 ${accento} bg-crema shadow-sm transition hover:shadow-xl`}
+                  className={`overflow-hidden rounded-sm border-t-2 ${accento} bg-crema shadow-sm transition hover:shadow-xl`}
                 >
-                  <div className="relative h-80 w-full overflow-hidden">
-                    <Image
-                      src={c.copertina.src}
-                      alt={c.copertina.alt}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
+                  <RoomCarousel foto={c.galleria.slice(0, 5)} />
                   <div className="p-7">
                     <p className="font-display text-3xl text-inchiostro">{c.nome}</p>
                     <p className="mt-2 font-body text-sm uppercase tracking-widest2 text-inchiostro/50">{c.sottotitolo}</p>
+                    <Link
+                      href={`/camere#${c.slug}`}
+                      className="mt-4 inline-block font-body text-sm uppercase tracking-widest2 text-rosso hover:underline"
+                    >
+                      Scopri tutte le foto →
+                    </Link>
                   </div>
-                </Link>
+                </div>
               );
             })}
           </div>
