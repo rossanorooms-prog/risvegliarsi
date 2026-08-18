@@ -106,8 +106,31 @@ export const galleriaComune: Foto[] = [
 ];
 
 export const galleriaEsterni: Foto[] = [
+  { src: "/images/esterni/facciata-giorno.jpg", alt: "Facciata di Risvegliarsi di giorno" },
   { src: "/images/esterni/facciata-notte-2.webp", alt: "Ingresso principale di Risvegliarsi di sera" },
-  { src: "/images/esterni/facciata-notte-1.jpg", alt: "Facciata esterna di Risvegliarsi" },
+  { src: "/images/esterni/facciata-notte-1.jpg", alt: "Facciata esterna di Risvegliarsi di sera" },
+  { src: "/images/esterni/ingresso-1.jpg", alt: "Ingresso della struttura con porta e finestre in legno" },
+  { src: "/images/esterni/ingresso-2.jpg", alt: "Porta d'ingresso e finestre con persiane in legno" },
+  { src: "/images/esterni/ingresso-3.jpg", alt: "Dettaglio dell'ingresso con numero civico" },
+  { src: "/images/esterni/dettaglio-1.jpg", alt: "Dettaglio della facciata con persiane in legno" },
+  { src: "/images/esterni/dettaglio-2.jpg", alt: "Dettaglio del tetto e del comignolo in mattoni" },
+  { src: "/images/esterni/dettaglio-3.jpg", alt: "Dettaglio architettonico in cotto sopra la porta" },
+];
+
+// ============================================================
+// GALLERIA — sezione con foto divise per categoria
+// ============================================================
+export type GalleriaCategoria = {
+  slug: string;
+  nome: string;
+  foto: Foto[];
+};
+
+export const galleria: GalleriaCategoria[] = [
+  { slug: "alba", nome: "Alba", foto: camere[0].galleria },
+  { slug: "tramonto", nome: "Tramonto", foto: camere[1].galleria },
+  { slug: "esterno", nome: "Esterno", foto: galleriaEsterni },
+  { slug: "varie", nome: "Varie", foto: galleriaComune },
 ];
 
 // ============================================================

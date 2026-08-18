@@ -7,6 +7,7 @@ import { site } from "@/data/config";
 
 const links = [
   { href: "/camere", label: "Le camere" },
+  { href: "/galleria", label: "Galleria" },
   { href: "/servizi", label: "Servizi" },
   { href: "/disponibilita", label: "Disponibilità" },
   { href: "/longobucco", label: "Cosa fare a Longobucco" },
