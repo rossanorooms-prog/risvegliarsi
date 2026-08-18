@@ -104,6 +104,15 @@ export const galleriaComune: Foto[] = [
   { src: "/images/comune/scala-ingresso.jpg", alt: "Scala d'ingresso della struttura" },
   { src: "/images/comune/colazione.jpg", alt: "Angolo colazione con macchina da caffè" },
   { src: "/images/comune/clima.jpg", alt: "Telecomando del climatizzatore" },
+  { src: "/images/comune/asciugamani-cesto.jpg", alt: "Asciugamani piegati in un cestino" },
+  { src: "/images/comune/lavabo-dettaglio.jpg", alt: "Dettaglio del lavabo con dispenser di sapone" },
+  { src: "/images/comune/baule-antico.jpg", alt: "Baule antico in legno usato come mobile" },
+  { src: "/images/comune/baule-chiave.jpg", alt: "Dettaglio della chiave sul baule antico" },
+  { src: "/images/comune/baule-cassetti.jpg", alt: "Cassetti del baule antico con maniglie in ottone" },
+  { src: "/images/comune/travi-soffitto.jpg", alt: "Travi in legno a vista sul soffitto" },
+  { src: "/images/comune/travi-dettaglio.jpg", alt: "Dettaglio ravvicinato delle travi in legno originali" },
+  { src: "/images/comune/cuscini.jpg", alt: "Cuscini bianchi preparati sul letto" },
+  { src: "/images/comune/appendiabiti.jpg", alt: "Dettaglio dell'appendiabiti in legno" },
 ];
 
 export const galleriaEsterni: Foto[] = [
