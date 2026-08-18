@@ -20,6 +20,7 @@ const body = Jost({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: `${site.nome} — ${site.claim} | ${site.comune}`,
   description:
     "Bed & Breakfast a Longobucco (CS): due camere con bagno privato, parcheggio privato e colazione in camera.",

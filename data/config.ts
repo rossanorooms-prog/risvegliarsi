@@ -12,6 +12,7 @@ export const site = {
     "Ciao! Vorrei avere informazioni sulla disponibilità a Risvegliarsi.",
   email: "info@risvegliarsi.it", // aggiorna con l'indirizzo reale
   indirizzo: "Via Mazzini 43, Longobucco (CS)",
+  url: "https://www.risvegliarsibedebenessere.it",
 };
 
 export type Titolare = { nome: string; whatsappNumero: string };
