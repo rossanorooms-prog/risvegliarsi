@@ -109,10 +109,10 @@ export const camere: Camera[] = [
 
 export const servizi = [
   { titolo: "Parcheggio privato", testo: "Posto auto riservato agli ospiti, comodo per chi arriva in macchina a Longobucco." },
-  { titolo: "Bagno privato", testo: "Ogni camera ha il proprio bagno con doccia, non condiviso con altri ospiti." },
+  { titolo: "Bagno privato", testo: "Ogni camera ha il proprio bagno con doccia, completamente privato." },
   { titolo: "Colazione in camera", testo: "Dolce o salata, su richiesta. Macchina Dolce Gusto, toast, marmellate e Nutella a disposizione." },
   { titolo: "Check-in immediato", testo: "Basta poggiare le valigie: check-in rapido, senza attese." },
-  { titolo: "Smart TV", testo: "Netflix, Prime Video, Disney+ e canali in streaming." },
+  { titolo: "Smart TV", testo: "Canali in chiaro e in streaming: se vuoi, puoi collegarci i tuoi account Netflix, Prime Video e Disney+." },
   { titolo: "Aria condizionata", testo: "Climatizzatore con telecomando dedicato in ogni camera." },
   { titolo: "Wi-Fi", testo: "Connessione internet disponibile in tutta la struttura." },
 ];
@@ -243,23 +243,31 @@ export const doveSiTrova: Meta[] = [
   },
 ];
 
-// Piatti tipici: gastronomia locale e della Sila
+// Piatti tipici: le specialità autentiche della tradizione contadina di Longobucco
 export const piattiTipici: Meta[] = [
   {
-    titolo: "Patata della Sila",
-    testo: "Coltivata sull'altopiano silano, è un'eccellenza riconosciuta della zona: alla base di molti piatti della tradizione contadina locale.",
+    titolo: "U sacchiattu",
+    testo: "Carne di maiale racchiusa nella cotenna del polpaccio, cucita e poi fatta bollire: un piatto antico della tradizione contadina locale.",
   },
   {
-    titolo: "Caciocavallo Silano",
-    testo: "Formaggio a pasta filata tipico dell'altopiano della Sila, prodotto da secoli con il latte degli allevamenti di montagna.",
+    titolo: "A fressurata",
+    testo: "Carne di maiale fritta in padella, preparata secondo la ricetta tramandata nelle famiglie di Longobucco.",
   },
   {
-    titolo: "Funghi porcini",
-    testo: "I boschi della Sila che circondano Longobucco sono ricchi di funghi, protagonisti di molti piatti autunnali della cucina locale.",
+    titolo: "I ferriatti al sugo di castrato",
+    testo: "Un formato di pasta fatto a mano, condito con il sugo di carne di castrato: uno dei primi piatti più rappresentativi del paese.",
   },
   {
-    titolo: "Salumi di montagna",
-    testo: "Soppressata e salsicce di produzione locale, secondo le ricette tramandate nelle famiglie della zona.",
+    titolo: "A 'mpanata",
+    testo: "La colazione tradizionale del pastore: pane raffermo, siero di latte e ricotta appena fatta.",
+  },
+  {
+    titolo: "I crustuli ammelati e a pasta a cumpetti",
+    testo: "Dolci della tradizione natalizia: piccoli impasti fritti, legati insieme con miele. Si accompagnano alle grispedde, dolcetti di pasta frolla e zucchero a velo.",
+  },
+  {
+    titolo: "Patata della Sila e Caciocavallo Silano",
+    testo: "Due eccellenze dell'altopiano silano, alla base di molti piatti della cucina di montagna che si trovano ancora oggi nei ristoranti del paese.",
   },
 ];
 

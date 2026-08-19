@@ -33,6 +33,23 @@ export default function LongobuccoPage() {
       <div className="mt-16 flex justify-center">
         <WhatsAppButton label="Chiedi consigli agli host" fixed={false} />
       </div>
+
+      <div className="mx-auto mt-16 h-px w-14 bg-oro/50" />
+
+      <p className="mx-auto mt-10 max-w-2xl text-center font-body italic text-inchiostro/70">
+        Longobucco sorge in posizione dominante sulla selvaggia gola del torrente
+        Trionto, sul versante ionico della Sila Greca. Le sue origini sono antiche:
+        il nome deriverebbe da un toponimo di formazione bizantina, tradotto come
+        &quot;paese lontano&quot;, forse un riferimento alla sua natura impervia. L&apos;edificio
+        di maggior pregio è la barocca Chiesa dell&apos;Assunta, dove predicò l&apos;abate
+        Gioacchino da Fiore, beato ricordato da Dante nella Divina Commedia: al suo
+        interno si conserva una preziosa icona lignea policroma della Madonna col
+        Bambino, risalente al Quattro-Cinquecento. Nel 1911 il paese fu visitato
+        dallo scrittore anglo-americano Norman Douglas, che nel suo libro di
+        viaggio &quot;Old Calabria&quot; lo descrisse come un luogo quasi fiabesco. Ancora
+        oggi Longobucco è celebre per la sua arte tessile e il ricamo, nei cui
+        disegni e tecniche di lavorazione si riconoscono influenze bizantine.
+      </p>
     </div>
   );
 }
