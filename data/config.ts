@@ -177,6 +177,7 @@ export const sottosezioniLongobucco: SottosezioneLongobucco[] = [
   { slug: "dove-si-trova", nome: "Dove si trova Longobucco", descrizioneBreve: "Posizione, distanze e come arrivare." },
   { slug: "piatti-tipici", nome: "Piatti tipici di Longobucco", descrizioneBreve: "I sapori della Sila Greca." },
   { slug: "storia", nome: "Storia e informazioni", descrizioneBreve: "Dalle origini romane ai briganti, fino a oggi." },
+  { slug: "dove-dormire", nome: "Dove dormire a Longobucco", descrizioneBreve: "Il posto giusto per il tuo soggiorno: Risvegliarsi." },
 ];
 
 // Cosa vedere: monumenti, chiese e luoghi di interesse del centro storico
