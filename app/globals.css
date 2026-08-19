@@ -11,6 +11,10 @@ body {
   color: #2A231C;
 }
 
+.font-display {
+  font-weight: 700;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;

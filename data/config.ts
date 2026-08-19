@@ -10,7 +10,7 @@ export const site = {
   whatsappNumero: "393312543575", // formato internazionale senza + né spazi
   whatsappMessaggioDefault:
     "Ciao! Vorrei avere informazioni sulla disponibilità a Risvegliarsi.",
-  email: "info@risvegliarsi.it", // aggiorna con l'indirizzo reale
+  email: "info@risvegliarsibedebenessere.it",
   indirizzo: "Via Mazzini 43, Longobucco (CS)",
   url: "https://www.risvegliarsibedebenessere.it",
 };

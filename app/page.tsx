@@ -159,7 +159,7 @@ export default function HomePage() {
       <Reviews />
 
       {/* CTA FINALE */}
-      <section className="bg-petrolioscuro py-24 text-center text-crema">
+      <section className="bg-petrolio py-24 text-center text-crema">
         <Reveal direzione="dissolvenza">
           <p className="font-display text-4xl sm:text-5xl">Vuoi prenotare il tuo soggiorno?</p>
         </Reveal>

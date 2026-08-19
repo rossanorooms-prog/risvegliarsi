@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -7,15 +7,19 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import CookieBanner from "@/components/CookieBanner";
 import { site } from "@/data/config";
 
-const display = Cormorant_Garamond({
+// Font unico per tutto il sito, in stile Airbnb (Cereal, il font di Airbnb,
+// non è open source: Plus Jakarta Sans è l'alternativa gratuita più simile
+// per forma geometrica e leggibilità). Pesi più marcati per i titoli.
+const display = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["600", "700", "800"],
+  style: ["normal", "italic"],
   variable: "--font-display",
 });
 
-const body = Jost({
+const body = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-body",
 });
 

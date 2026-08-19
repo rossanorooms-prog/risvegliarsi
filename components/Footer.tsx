@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { site } from "@/data/config";
+import { site, titolari } from "@/data/config";
 
 export default function Footer() {
   return (
@@ -19,7 +19,23 @@ export default function Footer() {
           </div>
           <div>
             <p className="text-crema/40">Contatti</p>
-            <p className="mt-1">WhatsApp: +{site.whatsappNumero.replace(/^39/, "39 ")}</p>
+            {titolari.map((t) => (
+              <p key={t.nome} className="mt-1">
+                <a
+                  href={`https://wa.me/${t.whatsappNumero}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-orochiaro"
+                >
+                  WhatsApp {t.nome}: +{t.whatsappNumero.replace(/^39/, "39 ")}
+                </a>
+              </p>
+            ))}
+            <p className="mt-1">
+              <a href={`mailto:${site.email}`} className="hover:text-orochiaro">
+                {site.email}
+              </a>
+            </p>
           </div>
           <div>
             <p className="text-crema/40">Informazioni legali</p>
