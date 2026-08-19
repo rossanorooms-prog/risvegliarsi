@@ -10,7 +10,7 @@ export default function ContattiPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16 text-center">
       <h1 className="font-display text-4xl text-inchiostro sm:text-5xl">Contatti</h1>
-      <p className="mx-auto mt-4 max-w-md font-body text-inchiostro/70">
+      <p className="mx-auto mt-5 max-w-md font-body text-inchiostro/70">
         Il modo più veloce per parlare con noi è WhatsApp: rispondiamo con la
         disponibilità reale delle camere e ti aiutiamo a organizzare l&apos;arrivo.
       </p>
@@ -37,7 +37,7 @@ export default function ContattiPage() {
       <div className="mx-auto mt-16 h-px w-14 bg-oro/50" />
 
       <h2 className="mt-10 font-display text-3xl text-inchiostro">La posizione</h2>
-      <p className="mx-auto mt-4 max-w-md font-body text-inchiostro/70">
+      <p className="mx-auto mt-5 max-w-md font-body text-inchiostro/70">
         Siamo lungo la strada che porta al centro del paese, a soli 50 metri
         dalla piazza (praticamente di fronte al comune): notti tranquille e
         allo stesso tempo tutto a due passi. Facile da trovare — tra i B&amp;B

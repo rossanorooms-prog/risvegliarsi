@@ -84,7 +84,7 @@ export default function AnteprimaPage() {
       <section className="py-24">
         <div className="mx-auto max-w-6xl px-6">
           <p className="text-center font-body text-xs uppercase tracking-widest2 text-oro">Le nostre camere</p>
-          <h2 className="mb-3 mt-3 text-center font-display text-4xl text-inchiostro sm:text-5xl">
+          <h2 className="mb-4 mt-4 text-center font-display text-4xl text-inchiostro sm:text-5xl">
             Scegli l&apos;atmosfera che fa per te
           </h2>
           <p className="mx-auto mb-12 max-w-md text-center font-body text-sm text-inchiostro/60">
@@ -169,7 +169,7 @@ export default function AnteprimaPage() {
       {/* SERVIZI */}
       <section className="bg-cremascura/50 py-24">
         <div className="mx-auto max-w-6xl px-6">
-          <h2 className="mb-3 text-center font-display text-4xl text-inchiostro sm:text-5xl">Servizi</h2>
+          <h2 className="mb-4 text-center font-display text-4xl text-inchiostro sm:text-5xl">Servizi</h2>
           <p className="mx-auto mb-14 max-w-md text-center font-body text-sm text-inchiostro/60">
             Tutto quello che trovi incluso nel soggiorno.
           </p>

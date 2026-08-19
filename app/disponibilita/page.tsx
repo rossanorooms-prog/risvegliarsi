@@ -41,7 +41,7 @@ export default function DisponibilitaPage() {
       <h1 className="text-center font-display text-4xl text-inchiostro sm:text-5xl">
         Disponibilità
       </h1>
-      <p className="mx-auto mt-4 max-w-xl text-center font-body text-inchiostro/70">
+      <p className="mx-auto mt-5 max-w-xl text-center font-body text-inchiostro/70">
         Verde = libera, rosso = occupata. Per prenotare le date libere scrivici su WhatsApp.
       </p>
       <p className="mx-auto mt-3 max-w-xl text-center font-body text-sm uppercase tracking-widest2 text-rosso">

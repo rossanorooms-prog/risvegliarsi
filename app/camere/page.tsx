@@ -11,7 +11,7 @@ export default function CamerePage() {
       <h1 className="text-center font-display text-4xl text-inchiostro sm:text-5xl">
         Le camere
       </h1>
-      <p className="mx-auto mt-4 max-w-xl text-center font-body text-inchiostro/70">
+      <p className="mx-auto mt-5 max-w-xl text-center font-body text-inchiostro/70">
         Due camere distinte, ciascuna con bagno privato. Le foto raccontano meglio
         di ogni descrizione lo spazio e l&apos;atmosfera.
       </p>

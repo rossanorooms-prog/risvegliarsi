@@ -15,7 +15,7 @@ export default function Reviews() {
   return (
     <section className="mx-auto max-w-6xl px-6 py-24">
       <Reveal direzione="destra">
-        <h2 className="mb-3 text-center font-display text-4xl text-inchiostro sm:text-5xl">
+        <h2 className="mb-4 text-center font-display text-4xl text-inchiostro sm:text-5xl">
           Cosa dicono i nostri ospiti
         </h2>
       </Reveal>

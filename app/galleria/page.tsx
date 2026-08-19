@@ -10,7 +10,7 @@ export default function GalleriaPage() {
       <h1 className="text-center font-display text-4xl text-inchiostro sm:text-5xl">
         Galleria
       </h1>
-      <p className="mx-auto mt-4 max-w-xl text-center font-body text-inchiostro/70">
+      <p className="mx-auto mt-5 max-w-xl text-center font-body text-inchiostro/70">
         Le camere, gli spazi comuni e l&apos;esterno della struttura, per farti
         un&apos;idea prima di arrivare.
       </p>

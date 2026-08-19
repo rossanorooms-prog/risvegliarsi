@@ -24,7 +24,7 @@ export default function SottosezioneLongobuccoPage({
         {titolo}
       </h1>
       {intro && (
-        <p className="mx-auto mt-4 max-w-xl text-center font-body text-inchiostro/70">{intro}</p>
+        <p className="mx-auto mt-5 max-w-xl text-center font-body text-inchiostro/70">{intro}</p>
       )}
 
       <div className="mx-auto mt-4 h-px w-14 bg-oro/50" />

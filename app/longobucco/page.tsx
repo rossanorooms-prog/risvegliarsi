@@ -11,7 +11,7 @@ export default function LongobuccoPage() {
       <h1 className="text-center font-display text-4xl text-inchiostro sm:text-5xl">
         Longobucco
       </h1>
-      <p className="mx-auto mt-4 max-w-xl text-center font-body text-inchiostro/70">
+      <p className="mx-auto mt-5 max-w-xl text-center font-body text-inchiostro/70">
         Tutto quello che ti serve sapere sul nostro borgo, per organizzare al meglio il tuo soggiorno.
       </p>
 

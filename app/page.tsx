@@ -18,10 +18,10 @@ export default function HomePage() {
   return (
     <>
       {/* HERO */}
-      <section className="relative flex h-[96vh] min-h-[620px] items-end justify-center overflow-hidden">
+      <section className="relative flex min-h-[92vh] items-end justify-center overflow-hidden py-16">
         <HeroSlideshow foto={fotoHero} />
         <div className="absolute inset-0 bg-gradient-to-t from-inchiostro via-inchiostro/40 to-inchiostro/10" />
-        <div className="relative z-10 flex flex-col items-center px-6 pb-20 text-center text-crema">
+        <div className="relative z-10 flex flex-col items-center px-6 pb-12 text-center text-crema">
           <Image
             src="/images/logo-white.png"
             alt={site.nome}
@@ -37,7 +37,7 @@ export default function HomePage() {
             {site.comune} · {site.provincia}
           </p>
           <h1
-            className="hero-entra mt-4 font-display text-6xl tracking-wide sm:text-7xl"
+            className="hero-entra mt-5 font-display text-5xl leading-[1.05] tracking-wide sm:text-7xl"
             style={{ animationDelay: "280ms" }}
           >
             {site.nome}
@@ -95,7 +95,7 @@ export default function HomePage() {
       <section className="bg-cremascura/50 py-24">
         <div className="mx-auto max-w-6xl px-6">
           <Reveal direzione="destra">
-            <h2 className="mb-3 text-center font-display text-4xl text-inchiostro sm:text-5xl">
+            <h2 className="mb-4 text-center font-display text-4xl text-inchiostro sm:text-5xl">
               Le camere
             </h2>
           </Reveal>
@@ -134,7 +134,7 @@ export default function HomePage() {
       {/* SERVIZI */}
       <section className="mx-auto max-w-6xl px-6 py-24">
         <Reveal direzione="sinistra">
-          <h2 className="mb-3 text-center font-display text-4xl text-inchiostro sm:text-5xl">
+          <h2 className="mb-4 text-center font-display text-4xl text-inchiostro sm:text-5xl">
             Servizi
           </h2>
         </Reveal>
