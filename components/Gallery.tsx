@@ -21,6 +21,13 @@ export default function Gallery({
     const nodo = gridRef.current;
     if (!nodo) return;
 
+    // Se la griglia è già (parzialmente) visibile al caricamento, mostrala subito
+    const rect = nodo.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setVisibile(true);
+      return;
+    }
+
     const osservatore = new IntersectionObserver(
       (voci) => {
         if (voci[0]?.isIntersecting) {
@@ -28,19 +35,27 @@ export default function Gallery({
           osservatore.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0, rootMargin: "0px 0px -80px 0px" }
     );
 
     osservatore.observe(nodo);
     return () => osservatore.disconnect();
   }, []);
 
-  const nascostaClass =
-    direzione === "sinistra"
-      ? "-translate-x-10 opacity-0"
-      : direzione === "destra"
-      ? "translate-x-10 opacity-0"
-      : "translate-y-6 opacity-0";
+  function stileFoto(i: number): React.CSSProperties {
+    const base: React.CSSProperties = {
+      transitionProperty: "transform, opacity",
+      transitionDuration: "700ms",
+      transitionTimingFunction: "ease-out",
+      transitionDelay: `${Math.min(i * 60, 480)}ms`,
+    };
+    if (visibile) {
+      return { ...base, transform: "translate(0, 0)", opacity: 1 };
+    }
+    if (direzione === "sinistra") return { ...base, transform: "translateX(-40px)", opacity: 0 };
+    if (direzione === "destra") return { ...base, transform: "translateX(40px)", opacity: 0 };
+    return { ...base, transform: "translateY(24px)", opacity: 0 };
+  }
 
   return (
     <>
@@ -49,10 +64,8 @@ export default function Gallery({
           <button
             key={f.src}
             onClick={() => setAperta(i)}
-            style={{ transitionDelay: `${Math.min(i * 60, 480)}ms` }}
-            className={`group relative aspect-[4/3] overflow-hidden rounded-lg bg-cremascura transition-all duration-700 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-rosso ${
-              visibile ? "translate-x-0 translate-y-0 opacity-100" : nascostaClass
-            }`}
+            style={stileFoto(i)}
+            className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-cremascura focus:outline-none focus-visible:ring-2 focus-visible:ring-rosso"
           >
             <Image
               src={f.src}
