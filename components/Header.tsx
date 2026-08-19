@@ -10,7 +10,7 @@ const links = [
   { href: "/galleria", label: "Galleria" },
   { href: "/servizi", label: "Servizi" },
   { href: "/disponibilita", label: "Disponibilità" },
-  { href: "/longobucco", label: "Cosa fare a Longobucco" },
+  { href: "/longobucco", label: "Longobucco" },
   { href: "/contatti", label: "Contatti" },
 ];
 

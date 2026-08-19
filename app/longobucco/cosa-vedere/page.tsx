@@ -1,0 +1,15 @@
+import { cosaVedere } from "@/data/config";
+import SottosezioneLongobuccoPage from "@/components/SottosezioneLongobucco";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Cosa vedere a Longobucco — Risvegliarsi" };
+
+export default function CosaVederePage() {
+  return (
+    <SottosezioneLongobuccoPage
+      titolo="Cosa vedere a Longobucco"
+      intro="Chiese, torri storiche e un centro storico fatto di vicoli stretti e scalinate: ecco cosa non perdere durante la tua visita."
+      contenuti={cosaVedere}
+    />
+  );
+}

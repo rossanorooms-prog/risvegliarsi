@@ -161,26 +161,125 @@ export const galleria: GalleriaCategoria[] = [
 ];
 
 // ============================================================
-// COSA FARE A LONGOBUCCO — contenuti da rifinire in seguito
+// LONGOBUCCO — contenuti divisi in 5 sottosezioni
 // ============================================================
 export type Meta = { titolo: string; testo: string };
 
+export type SottosezioneLongobucco = {
+  slug: string;
+  nome: string;
+  descrizioneBreve: string;
+};
+
+export const sottosezioniLongobucco: SottosezioneLongobucco[] = [
+  { slug: "cosa-vedere", nome: "Cosa vedere a Longobucco", descrizioneBreve: "Chiese, torri e il centro storico da scoprire a piedi." },
+  { slug: "cosa-fare", nome: "Cosa fare a Longobucco", descrizioneBreve: "Escursioni, artigianato e la vita del borgo." },
+  { slug: "dove-si-trova", nome: "Dove si trova Longobucco", descrizioneBreve: "Posizione, distanze e come arrivare." },
+  { slug: "piatti-tipici", nome: "Piatti tipici di Longobucco", descrizioneBreve: "I sapori della Sila Greca." },
+  { slug: "storia", nome: "Storia e informazioni", descrizioneBreve: "Dalle origini romane ai briganti, fino a oggi." },
+];
+
+// Cosa vedere: monumenti, chiese e luoghi di interesse del centro storico
+export const cosaVedere: Meta[] = [
+  {
+    titolo: "Chiesa Matrice di Santa Maria Assunta",
+    testo: "La chiesa principale del paese, di origine duecentesca. All'interno custodisce un fonte battesimale in pietra nera di epoca romanico-normanna e una scultura lignea quattrocentesca raffigurante la Madonna col Bambino, opera di artigiani silani.",
+  },
+  {
+    titolo: "Torre Civica (Torre Campanaria)",
+    testo: "Simbolo di Longobucco, sorge accanto alla Chiesa Matrice in Piazza Matteotti. Costruita nel XII secolo come torre di avvistamento contro i Saraceni, fu trasformata in campanile intorno al 1700. Gli abitanti la chiamano ancora 'u Campanaru'.",
+  },
+  {
+    titolo: "Il centro storico e le \"vinedde\"",
+    testo: "Le caratteristiche stradine strette e intrecciate del borgo, spesso impreziosite da scalinate in pietra. Passeggiando si incontrano portali scolpiti, come quelli di Palazzo Citìno, testimonianza della lavorazione della pietra locale.",
+  },
+  {
+    titolo: "Museo dell'Artigianato Silano e della Difesa del Suolo",
+    testo: "Allestito nell'ex Convento dei Frati Francescani, racconta la storia dell'estrazione dell'argento e dell'oreficeria locale. Da qui parte anche la \"Via delle Miniere\", il sentiero che conduce alle antiche cave.",
+  },
+  {
+    titolo: "Mostra Permanente dei Tessuti Artigianali",
+    testo: "Longobucco è da secoli un centro di riferimento per la tessitura a mano di tappeti e coperte. La mostra nel centro storico racconta questa tradizione, ancora oggi portata avanti da botteghe familiari.",
+  },
+  {
+    titolo: "Altre chiese del borgo",
+    testo: "La Chiesa di San Domenico, con la statua lignea settecentesca del santo; la Chiesa di Santa Maria Maddalena, con un crocifisso ligneo ottocentesco; la Chiesa degli Angeli Custodi del XVII secolo.",
+  },
+];
+
+// Cosa fare: attività ed esperienze
 export const cosaFare: Meta[] = [
   {
-    titolo: "Il borgo storico",
-    testo: "Vicoli, scalinate in pietra e architettura tipica della Sila Greca da scoprire a piedi, con calma.",
+    titolo: "La Via delle Miniere",
+    testo: "Un percorso storico-naturalistico che dal paese conduce alle antiche cave d'argento, attraverso boschi fitti: una delle escursioni più interessanti nei dintorni di Longobucco.",
   },
   {
-    titolo: "Il Parco Nazionale della Sila",
-    testo: "Longobucco è una delle porte d'accesso alla Sila: boschi, laghi e sentieri di trekking a breve distanza.",
+    titolo: "Trekking nel Parco Nazionale della Sila",
+    testo: "Gran parte del territorio comunale ricade nel Parco della Sila: sentieri, boschi e la possibilità di raggiungere il Lago di Cecita, il più grande lago della Calabria.",
   },
   {
-    titolo: "Artigianato tessile locale",
-    testo: "Il paese ha una lunga tradizione di tessitura artigianale: vale la pena cercare le botteghe storiche.",
+    titolo: "Scoprire l'artigianato tessile",
+    testo: "Visitare le botteghe storiche dove si tessono ancora a mano tappeti e coperte con le tecniche tradizionali, tramandate da generazioni.",
   },
   {
-    titolo: "Prodotti tipici e gastronomia",
-    testo: "Piatti della tradizione silana e calabrese nei ristoranti e trattorie del centro.",
+    titolo: "Vivere il borgo tra le cantine tipiche",
+    testo: "Le tradizionali \"Cantine\" del centro storico, note con i soprannomi dei proprietari, sono il luogo dove assaporare un bicchiere di vino locale e l'ospitalità dei longobucchesi.",
+  },
+];
+
+// Dove si trova: posizione geografica e come arrivare
+export const doveSiTrova: Meta[] = [
+  {
+    titolo: "Posizione",
+    testo: "Longobucco si trova in provincia di Cosenza, nel cuore della Sila Greca, a 784 metri sul livello del mare, alle pendici del Monte Castello. È il quarto comune più esteso della Calabria.",
+  },
+  {
+    titolo: "Il territorio",
+    testo: "Buona parte del territorio comunale rientra nel Parco Nazionale della Sila. Il fiume Trionto attraversa la vallata, e a circa trenta chilometri si trova il Lago di Cecita.",
+  },
+  {
+    titolo: "Come arrivare in auto",
+    testo: "La strada più comune è uscire a Cosenza e proseguire lungo la statale che sale verso la Sila fino al paese.",
+  },
+];
+
+// Piatti tipici: gastronomia locale e della Sila
+export const piattiTipici: Meta[] = [
+  {
+    titolo: "Patata della Sila",
+    testo: "Coltivata sull'altopiano silano, è un'eccellenza riconosciuta della zona: alla base di molti piatti della tradizione contadina locale.",
+  },
+  {
+    titolo: "Caciocavallo Silano",
+    testo: "Formaggio a pasta filata tipico dell'altopiano della Sila, prodotto da secoli con il latte degli allevamenti di montagna.",
+  },
+  {
+    titolo: "Funghi porcini",
+    testo: "I boschi della Sila che circondano Longobucco sono ricchi di funghi, protagonisti di molti piatti autunnali della cucina locale.",
+  },
+  {
+    titolo: "Salumi di montagna",
+    testo: "Soppressata e salsicce di produzione locale, secondo le ricette tramandate nelle famiglie della zona.",
+  },
+];
+
+// Storia e informazioni
+export const storiaInfo: Meta[] = [
+  {
+    titolo: "Origini",
+    testo: "Le origini di Longobucco risalgono all'epoca romana: il nome deriverebbe dal latino \"longa bucca\", che indica una lunga cavità, riferendosi alla conformazione della vallata. Nei secoli il territorio fu frequentato anche da popolazioni bizantine, normanne e longobarde.",
+  },
+  {
+    titolo: "L'argento e i briganti",
+    testo: "Nel territorio di Longobucco sono documentati giacimenti d'argento sfruttati almeno dal XII secolo. Le caratteristiche impervie del territorio favorirono anche il fenomeno del brigantaggio, che vide nascere qui figure note come Antonio Santoro, detto \"Re Curemme\".",
+  },
+  {
+    titolo: "Un borgo raccontato dai viaggiatori",
+    testo: "Nel 1911 il paese fu visitato dallo scrittore anglo-americano Norman Douglas, che lo descrisse nel suo libro \"Old Calabria\" come una città da sogno delle Mille e una Notte.",
+  },
+  {
+    titolo: "Informazioni pratiche",
+    testo: "Comune della provincia di Cosenza, circa 3.600 abitanti, CAP 87066. Il patrono è San Domenico, festeggiato il 4 agosto.",
   },
 ];
 
