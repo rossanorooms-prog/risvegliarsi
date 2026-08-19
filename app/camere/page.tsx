@@ -44,7 +44,7 @@ export default function CamerePage() {
       })}
 
       <section className="mt-20">
-        <h2 className="font-display text-3xl text-inchiostro sm:text-4xl">Spazi comuni</h2>
+        <h2 className="font-display text-3xl text-inchiostro sm:text-4xl">Altre foto</h2>
         <div className="mt-8">
           <Gallery foto={galleriaComune} />
         </div>

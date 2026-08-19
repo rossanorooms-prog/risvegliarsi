@@ -157,7 +157,7 @@ export const galleria: GalleriaCategoria[] = [
   { slug: "alba", nome: "Alba", foto: camere[0].galleria },
   { slug: "tramonto", nome: "Tramonto", foto: camere[1].galleria },
   { slug: "esterno", nome: "Esterno", foto: galleriaEsterni },
-  { slug: "varie", nome: "Varie", foto: galleriaComune },
+  { slug: "varie", nome: "Altre foto", foto: galleriaComune },
 ];
 
 // ============================================================
