@@ -5,6 +5,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import Reviews from "@/components/Reviews";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import RoomCarousel from "@/components/RoomCarousel";
+import Reveal from "@/components/Reveal";
 
 // Foto generali per la hero: facciate e ingressi, escludendo i primi piani
 // molto tecnici (comignolo, mensole in cotto) che rendono meglio nella
@@ -67,50 +68,63 @@ export default function HomePage() {
 
       {/* INTRO */}
       <section className="mx-auto max-w-3xl px-6 py-24 text-center">
-        <p className="font-display text-3xl italic leading-snug text-inchiostro sm:text-4xl">
-          Un rifugio raccolto nel cuore di {site.comune}, tra la Sila e il silenzio.
-        </p>
-        <div className="mx-auto mt-6 h-px w-14 bg-oro/50" />
-        <p className="mx-auto mt-6 max-w-xl font-body text-inchiostro/70">
-          Due camere con bagno privato, parcheggio riservato e la cura dei dettagli
-          che fa la differenza in un soggiorno.
-        </p>
-        <p className="mx-auto mt-4 max-w-xl font-body text-inchiostro/70">
-          La struttura è stata finemente ristrutturata e ammodernata di recente,
-          in un equilibrio curato tra elementi antichi restaurati e comfort
-          moderni.
-        </p>
+        <Reveal direzione="dissolvenza">
+          <p className="font-display text-3xl italic leading-snug text-inchiostro sm:text-4xl">
+            Un rifugio raccolto nel cuore di {site.comune}, tra la Sila e il silenzio.
+          </p>
+        </Reveal>
+        <Reveal direzione="dissolvenza" ritardoMs={150}>
+          <div className="mx-auto mt-6 h-px w-14 bg-oro/50" />
+        </Reveal>
+        <Reveal direzione="su" ritardoMs={200}>
+          <p className="mx-auto mt-6 max-w-xl font-body text-inchiostro/70">
+            Due camere con bagno privato, parcheggio riservato e la cura dei dettagli
+            che fa la differenza in un soggiorno.
+          </p>
+        </Reveal>
+        <Reveal direzione="su" ritardoMs={320}>
+          <p className="mx-auto mt-4 max-w-xl font-body text-inchiostro/70">
+            La struttura è stata finemente ristrutturata e ammodernata di recente,
+            in un equilibrio curato tra elementi antichi restaurati e comfort
+            moderni.
+          </p>
+        </Reveal>
       </section>
 
       {/* CAMERE */}
       <section className="bg-cremascura/50 py-24">
         <div className="mx-auto max-w-6xl px-6">
-          <h2 className="mb-3 text-center font-display text-4xl text-inchiostro sm:text-5xl">
-            Le camere
-          </h2>
-          <p className="mx-auto mb-12 max-w-md text-center font-body text-sm text-inchiostro/60">
-            Due atmosfere distinte, la stessa cura in ogni dettaglio.
-          </p>
+          <Reveal direzione="destra">
+            <h2 className="mb-3 text-center font-display text-4xl text-inchiostro sm:text-5xl">
+              Le camere
+            </h2>
+          </Reveal>
+          <Reveal direzione="destra" ritardoMs={120}>
+            <p className="mx-auto mb-12 max-w-md text-center font-body text-sm text-inchiostro/60">
+              Due atmosfere distinte, la stessa cura in ogni dettaglio.
+            </p>
+          </Reveal>
           <div className="grid gap-8 sm:grid-cols-2">
-            {camere.map((c) => {
+            {camere.map((c, i) => {
               const accento = c.accento === "petrolio" ? "border-petrolio" : "border-senape";
               return (
-                <div
-                  key={c.slug}
-                  className={`overflow-hidden rounded-sm border-t-2 ${accento} bg-crema shadow-sm transition hover:shadow-xl`}
-                >
-                  <RoomCarousel foto={c.galleria.slice(0, 5)} />
-                  <div className="p-7">
-                    <p className="font-display text-3xl text-inchiostro">{c.nome}</p>
-                    <p className="mt-2 font-body text-sm uppercase tracking-widest2 text-inchiostro/50">{c.sottotitolo}</p>
-                    <Link
-                      href={`/camere#${c.slug}`}
-                      className="mt-4 inline-block font-body text-sm uppercase tracking-widest2 text-rosso hover:underline"
-                    >
-                      Scopri tutte le foto →
-                    </Link>
+                <Reveal key={c.slug} direzione={i === 0 ? "sinistra" : "destra"}>
+                  <div
+                    className={`overflow-hidden rounded-sm border-t-2 ${accento} bg-crema shadow-sm transition hover:shadow-xl`}
+                  >
+                    <RoomCarousel foto={c.galleria.slice(0, 5)} />
+                    <div className="p-7">
+                      <p className="font-display text-3xl text-inchiostro">{c.nome}</p>
+                      <p className="mt-2 font-body text-sm uppercase tracking-widest2 text-inchiostro/50">{c.sottotitolo}</p>
+                      <Link
+                        href={`/camere#${c.slug}`}
+                        className="mt-4 inline-block font-body text-sm uppercase tracking-widest2 text-rosso hover:underline"
+                      >
+                        Scopri tutte le foto →
+                      </Link>
+                    </div>
                   </div>
-                </div>
+                </Reveal>
               );
             })}
           </div>
@@ -119,18 +133,24 @@ export default function HomePage() {
 
       {/* SERVIZI */}
       <section className="mx-auto max-w-6xl px-6 py-24">
-        <h2 className="mb-3 text-center font-display text-4xl text-inchiostro sm:text-5xl">
-          Servizi
-        </h2>
-        <p className="mx-auto mb-14 max-w-md text-center font-body text-sm text-inchiostro/60">
-          Tutto quello che trovi incluso nel soggiorno.
-        </p>
+        <Reveal direzione="sinistra">
+          <h2 className="mb-3 text-center font-display text-4xl text-inchiostro sm:text-5xl">
+            Servizi
+          </h2>
+        </Reveal>
+        <Reveal direzione="sinistra" ritardoMs={120}>
+          <p className="mx-auto mb-14 max-w-md text-center font-body text-sm text-inchiostro/60">
+            Tutto quello che trovi incluso nel soggiorno.
+          </p>
+        </Reveal>
         <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
-          {servizi.map((s) => (
-            <div key={s.titolo} className="border-t border-oro/30 pt-4">
-              <p className="font-display text-xl text-inchiostro">{s.titolo}</p>
-              <p className="mt-2 font-body text-sm text-inchiostro/70">{s.testo}</p>
-            </div>
+          {servizi.map((s, i) => (
+            <Reveal key={s.titolo} direzione="su" ritardoMs={(i % 3) * 100}>
+              <div className="border-t border-oro/30 pt-4">
+                <p className="font-display text-xl text-inchiostro">{s.titolo}</p>
+                <p className="mt-2 font-body text-sm text-inchiostro/70">{s.testo}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -139,15 +159,23 @@ export default function HomePage() {
       <Reviews />
 
       {/* CTA FINALE */}
-      <section className="bg-inchiostro py-24 text-center text-crema">
-        <p className="font-display text-4xl sm:text-5xl">Vuoi prenotare il tuo soggiorno?</p>
-        <div className="mx-auto mt-6 h-px w-14 bg-oro/50" />
-        <p className="mx-auto mt-6 max-w-md font-body text-crema/70">
-          Scrivici su WhatsApp: ti rispondiamo con la disponibilità reale delle camere.
-        </p>
-        <div className="mt-10 flex justify-center">
-          <WhatsAppButton label="Scrivici ora" fixed={false} />
-        </div>
+      <section className="bg-petrolioscuro py-24 text-center text-crema">
+        <Reveal direzione="dissolvenza">
+          <p className="font-display text-4xl sm:text-5xl">Vuoi prenotare il tuo soggiorno?</p>
+        </Reveal>
+        <Reveal direzione="dissolvenza" ritardoMs={150}>
+          <div className="mx-auto mt-6 h-px w-14 bg-oro/50" />
+        </Reveal>
+        <Reveal direzione="su" ritardoMs={250}>
+          <p className="mx-auto mt-6 max-w-md font-body text-crema/70">
+            Scrivici su WhatsApp: ti rispondiamo con la disponibilità reale delle camere.
+          </p>
+        </Reveal>
+        <Reveal direzione="su" ritardoMs={380}>
+          <div className="mt-10 flex justify-center">
+            <WhatsAppButton label="Scrivici ora" fixed={false} />
+          </div>
+        </Reveal>
       </section>
     </>
   );
