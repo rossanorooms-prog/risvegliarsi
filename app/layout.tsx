@@ -28,6 +28,19 @@ export const metadata: Metadata = {
   title: `${site.nome} — ${site.claim} | ${site.comune}`,
   description:
     "Bed & Breakfast a Longobucco (CS): due camere con bagno privato, parcheggio privato e colazione in camera.",
+  openGraph: {
+    title: `${site.nome} — ${site.claim}`,
+    description: `Bed & Breakfast a ${site.comune} (${site.provincia}): due camere con bagno privato, parcheggio privato e colazione in camera.`,
+    url: site.url,
+    siteName: site.nome,
+    locale: "it_IT",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.nome} — ${site.claim}`,
+    description: `Bed & Breakfast a ${site.comune} (${site.provincia}).`,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
