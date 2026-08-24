@@ -10,9 +10,11 @@ import Reveal from "@/components/Reveal";
 // Foto generali per la hero: facciate e ingressi, escludendo i primi piani
 // molto tecnici (comignolo, mensole in cotto) che rendono meglio nella
 // galleria dedicata che come prima immagine del sito.
-const fotoHero = galleriaEsterni.filter((f) =>
+const fotoHeroFiltrate = galleriaEsterni.filter((f) =>
   ["facciata-giorno", "facciata-notte", "ingresso-1", "ingresso-2"].some((k) => f.src.includes(k))
 );
+// La prima foto del carosello passa in fondo, così compare per ultima nel giro.
+const fotoHero = [...fotoHeroFiltrate.slice(1), fotoHeroFiltrate[0]];
 
 export default function HomePage() {
   return (
