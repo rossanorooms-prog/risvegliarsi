@@ -12,8 +12,8 @@ body {
 }
 
 .font-display {
-  font-weight: 700;
-  line-height: 1.15;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 @media (prefers-reduced-motion: reduce) {

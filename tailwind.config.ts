@@ -22,7 +22,7 @@ const config: Config = {
         orochiaro: "#D4B876",
       },
       fontFamily: {
-        display: ["var(--font-display)", "sans-serif"],
+        display: ["var(--font-display)", "serif"],
         body: ["var(--font-body)", "sans-serif"],
       },
       letterSpacing: {
