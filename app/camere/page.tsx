@@ -3,7 +3,11 @@ import Gallery from "@/components/Gallery";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Le camere — Risvegliarsi" };
+export const metadata: Metadata = {
+  title: "Le camere — Alba e Tramonto | B&B Risvegliarsi Longobucco",
+  description:
+    "Alba e Tramonto: due camere con bagno privato nel B&B Risvegliarsi a Longobucco (CS), nel cuore della Sila Greca. Scopri foto e dettagli di ciascuna camera.",
+};
 
 export default function CamerePage() {
   return (

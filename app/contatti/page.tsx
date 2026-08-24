@@ -2,7 +2,11 @@ import { site, titolari } from "@/data/config";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Contatti — Risvegliarsi" };
+export const metadata: Metadata = {
+  title: "Contatti — B&B Risvegliarsi Longobucco",
+  description:
+    "Contatta Risvegliarsi Bed & Benessere a Longobucco (CS): scrivi su WhatsApp a Maurizio o Maria Carmela, o vieni a trovarci in Via Mazzini 43, a due passi dalla piazza.",
+};
 
 export default function ContattiPage() {
   const mapsQuery = encodeURIComponent(site.indirizzo);

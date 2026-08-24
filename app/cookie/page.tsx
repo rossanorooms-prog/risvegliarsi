@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Cookie Policy — Risvegliarsi" };
+export const metadata: Metadata = {
+  title: "Cookie Policy — Risvegliarsi",
+  description: "Informativa sui cookie del sito di Risvegliarsi Bed & Benessere, B&B a Longobucco (CS).",
+};
 
 export default function CookiePage() {
   return (

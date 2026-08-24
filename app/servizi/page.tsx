@@ -2,7 +2,11 @@ import Image from "next/image";
 import { servizi } from "@/data/config";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Servizi — Risvegliarsi" };
+export const metadata: Metadata = {
+  title: "Servizi — B&B Risvegliarsi Longobucco",
+  description:
+    "Parcheggio privato, bagno privato in ogni camera, colazione dolce o salata, Smart TV e check-in immediato: tutti i servizi inclusi al B&B Risvegliarsi di Longobucco.",
+};
 
 export default function ServiziPage() {
   return (

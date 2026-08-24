@@ -3,7 +3,11 @@ import { sottosezioniLongobucco, site } from "@/data/config";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: `Longobucco — Risvegliarsi` };
+export const metadata: Metadata = {
+  title: "Longobucco: cosa vedere, cosa fare e dove dormire | Risvegliarsi",
+  description:
+    "Guida a Longobucco (CS), borgo della Sila Greca: cosa vedere, cosa fare, dove si trova, piatti tipici, storia e dove dormire durante la tua visita.",
+};
 
 export default function LongobuccoPage() {
   return (

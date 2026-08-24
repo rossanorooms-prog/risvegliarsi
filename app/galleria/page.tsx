@@ -2,7 +2,11 @@ import { galleria } from "@/data/config";
 import GalleryTabs from "@/components/GalleryTabs";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Galleria — Risvegliarsi" };
+export const metadata: Metadata = {
+  title: "Galleria foto — B&B Risvegliarsi Longobucco",
+  description:
+    "Tutte le foto del B&B Risvegliarsi a Longobucco: le camere Alba e Tramonto, gli spazi comuni e l'esterno della struttura ristrutturata nel centro storico.",
+};
 
 export default function GalleriaPage() {
   return (

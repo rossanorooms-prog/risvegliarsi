@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import CookieBanner from "@/components/CookieBanner";
-import { site } from "@/data/config";
+import { site, titolari } from "@/data/config";
 
 // Titoli: serif elegante ravvicinato allo stile del logo (linee sottili,
 // alto contrasto, eleganza classica). Testo corrente: sans pulito e leggibile.
@@ -43,9 +43,31 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const datiStrutturati = {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    name: site.nome,
+    image: `${site.url}/opengraph-image.png`,
+    url: site.url,
+    telephone: `+${titolari[0].whatsappNumero}`,
+    priceRange: "€€",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Via Mazzini 43",
+      addressLocality: site.comune,
+      addressRegion: site.provincia,
+      postalCode: "87066",
+      addressCountry: "IT",
+    },
+  };
+
   return (
     <html lang="it" className={`${display.variable} ${body.variable}`}>
       <body className="font-body">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(datiStrutturati) }}
+        />
         <Header />
         <main>{children}</main>
         <Footer />

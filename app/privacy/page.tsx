@@ -1,7 +1,10 @@
 import { site } from "@/data/config";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Privacy Policy — Risvegliarsi" };
+export const metadata: Metadata = {
+  title: "Privacy Policy — Risvegliarsi",
+  description: "Informativa sulla privacy del sito di Risvegliarsi Bed & Benessere, B&B a Longobucco (CS).",
+};
 
 export default function PrivacyPage() {
   return (

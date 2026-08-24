@@ -2,7 +2,10 @@ import { cosaFare } from "@/data/config";
 import SottosezioneLongobuccoPage from "@/components/SottosezioneLongobucco";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Cosa fare a Longobucco — Risvegliarsi" };
+export const metadata: Metadata = {
+  title: "Cosa fare a Longobucco — Risvegliarsi",
+  description: "Via delle Miniere, trekking nel Parco della Sila, artigianato tessile e cantine tipiche: le cose da fare a Longobucco (CS) durante il tuo soggiorno.",
+};
 
 export default function CosaFarePage() {
   return (

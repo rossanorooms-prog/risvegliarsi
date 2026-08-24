@@ -2,7 +2,10 @@ import { cosaVedere } from "@/data/config";
 import SottosezioneLongobuccoPage from "@/components/SottosezioneLongobucco";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Cosa vedere a Longobucco — Risvegliarsi" };
+export const metadata: Metadata = {
+  title: "Cosa vedere a Longobucco — Risvegliarsi",
+  description: "Chiesa Matrice, Torre Civica, il centro storico e il Museo dell'Artigianato Silano: cosa vedere a Longobucco (CS), borgo della Sila Greca.",
+};
 
 export default function CosaVederePage() {
   return (

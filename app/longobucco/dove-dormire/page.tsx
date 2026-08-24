@@ -4,7 +4,10 @@ import { camere, site } from "@/data/config";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Dove dormire a Longobucco — Risvegliarsi" };
+export const metadata: Metadata = {
+  title: "Dove dormire a Longobucco — Risvegliarsi Bed & Benessere",
+  description: "Cerchi dove dormire a Longobucco (CS)? Risvegliarsi Bed & Benessere: due camere con bagno privato in una struttura ristrutturata nel centro storico.",
+};
 
 export default function DoveDormirePage() {
   return (
