@@ -1,11 +1,26 @@
 import Link from "next/link";
 import { site, titolari } from "@/data/config";
 
+const facebookUrl = "https://www.facebook.com/share/1K7nTnLnSc/";
+
 export default function Footer() {
   return (
     <footer className="border-t border-oro/20 bg-petrolioscuro py-12 text-crema">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <p className="font-display text-3xl tracking-wide">{site.nome}</p>
+        <div className="flex items-center gap-4">
+          <p className="font-display text-3xl tracking-wide">{site.nome}</p>
+          <a
+            href={facebookUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Pagina Facebook di Risvegliarsi"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-crema/10 transition hover:bg-crema/20"
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5 fill-crema">
+              <path d="M13.5 21v-7.5h2.5l.4-3H13.5V8.5c0-.87.24-1.46 1.49-1.46H16.5V4.36c-.26-.03-1.15-.11-2.19-.11-2.17 0-3.66 1.32-3.66 3.75v2.5H8.5v3h2.15V21h2.85Z" />
+            </svg>
+          </a>
+        </div>
         <p className="mt-1 font-body text-xs uppercase tracking-widest2 text-orochiaro/80">
           {site.claim}
         </p>
