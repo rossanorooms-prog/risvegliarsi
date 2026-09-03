@@ -58,6 +58,8 @@ export default function Footer() {
               <Link href="/privacy" className="hover:text-orochiaro">Privacy</Link>
               <span className="text-crema/20">·</span>
               <Link href="/cookie" className="hover:text-orochiaro">Cookie</Link>
+              <span className="text-crema/20">·</span>
+              <Link href="/recensioni" className="hover:text-orochiaro">Lascia una recensione</Link>
             </p>
           </div>
         </div>

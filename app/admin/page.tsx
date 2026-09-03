@@ -5,6 +5,14 @@ import { camere } from "@/data/config";
 import CalendarMonth from "@/components/CalendarMonth";
 
 type Occupazioni = Record<string, Record<string, boolean>>;
+type Recensione = {
+  id: string;
+  nome: string;
+  valutazione: number;
+  testo: string;
+  data: string;
+  approvata: boolean;
+};
 
 export default function AdminPage() {
   const [autenticato, setAutenticato] = useState<boolean | null>(null);
@@ -12,6 +20,8 @@ export default function AdminPage() {
   const [errore, setErrore] = useState("");
   const [occupazioni, setOccupazioni] = useState<Occupazioni>({});
   const [erroreSalvataggio, setErroreSalvataggio] = useState("");
+  const [recensioni, setRecensioni] = useState<Recensione[]>([]);
+  const [erroreRecensioni, setErroreRecensioni] = useState("");
 
   useEffect(() => {
     fetch("/api/admin-auth")
@@ -24,6 +34,9 @@ export default function AdminPage() {
       fetch("/api/calendar")
         .then((r) => r.json())
         .then((res) => res.ok && setOccupazioni(res.data));
+      fetch("/api/recensioni")
+        .then((r) => r.json())
+        .then((res) => res.ok && setRecensioni(res.data));
     }
   }, [autenticato]);
 
@@ -77,6 +90,32 @@ export default function AdminPage() {
       }
     } catch {
       setErroreSalvataggio("Errore di connessione. Controlla la rete e riprova.");
+    }
+  }
+
+  async function modera(id: string, azione: "approva" | "elimina") {
+    setErroreRecensioni("");
+    // aggiornamento ottimistico
+    setRecensioni((prev) =>
+      azione === "elimina"
+        ? prev.filter((r) => r.id !== id)
+        : prev.map((r) => (r.id === id ? { ...r, approvata: true } : r))
+    );
+
+    try {
+      const res = await fetch("/api/recensioni", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, azione }),
+      });
+      const body = await res.json().catch(() => null);
+      if (!res.ok || !body?.ok) {
+        setErroreRecensioni(body?.error || "Non sono riuscito a salvare la modifica. Riprova tra poco.");
+        const check = await fetch("/api/recensioni").then((r) => r.json());
+        if (check.ok) setRecensioni(check.data);
+      }
+    } catch {
+      setErroreRecensioni("Errore di connessione. Controlla la rete e riprova.");
     }
   }
 
@@ -145,6 +184,65 @@ export default function AdminPage() {
           );
         })}
       </div>
+
+      <div className="mx-auto mt-16 h-px w-full bg-inchiostro/10" />
+
+      <h2 className="mt-16 font-display text-3xl text-inchiostro sm:text-4xl">Recensioni</h2>
+      <p className="mt-3 font-body text-inchiostro/60">
+        Le recensioni in attesa non sono visibili sul sito finché non le approvi.
+      </p>
+
+      {erroreRecensioni && (
+        <div className="mt-6 rounded-md border border-rosso/30 bg-rosso/5 px-4 py-3 font-body text-sm text-rosso">
+          {erroreRecensioni}
+        </div>
+      )}
+
+      {recensioni.length === 0 ? (
+        <p className="mt-8 font-body text-sm text-inchiostro/50">Nessuna recensione ricevuta finora.</p>
+      ) : (
+        <div className="mt-8 space-y-4">
+          {recensioni.map((r) => (
+            <div
+              key={r.id}
+              className={`rounded-lg border p-5 ${
+                r.approvata ? "border-inchiostro/10 bg-white" : "border-oro/40 bg-oro/5"
+              }`}
+            >
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="font-display text-lg text-inchiostro">
+                    {r.nome}{" "}
+                    <span className="font-body text-sm text-oro">{"★".repeat(r.valutazione)}</span>
+                  </p>
+                  <p className="font-body text-xs text-inchiostro/40">
+                    {new Date(r.data).toLocaleDateString("it-IT", { year: "numeric", month: "long", day: "numeric" })}
+                    {" · "}
+                    {r.approvata ? "pubblicata" : "in attesa di approvazione"}
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  {!r.approvata && (
+                    <button
+                      onClick={() => modera(r.id, "approva")}
+                      className="rounded-full bg-inchiostro px-4 py-1.5 font-body text-xs uppercase tracking-widest2 text-crema hover:bg-inchiostro/90"
+                    >
+                      Approva
+                    </button>
+                  )}
+                  <button
+                    onClick={() => modera(r.id, "elimina")}
+                    className="rounded-full border border-rosso/40 px-4 py-1.5 font-body text-xs uppercase tracking-widest2 text-rosso hover:bg-rosso/5"
+                  >
+                    Elimina
+                  </button>
+                </div>
+              </div>
+              <p className="mt-3 font-body text-sm text-inchiostro/80">{r.testo}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

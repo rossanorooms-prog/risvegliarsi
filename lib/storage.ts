@@ -61,3 +61,50 @@ export async function setOccupazioni(data: Occupazioni): Promise<void> {
 export function storagePersistente(): boolean {
   return hasUpstash();
 }
+
+// ============================================================
+// RECENSIONI — scritte dagli ospiti, pubblicate solo dopo
+// l'approvazione di un amministratore (per evitare spam)
+// ============================================================
+export type Recensione = {
+  id: string;
+  nome: string;
+  valutazione: number; // 1-5
+  testo: string;
+  data: string; // ISO
+  approvata: boolean;
+};
+
+const KEY_RECENSIONI = "risvegliarsi:recensioni";
+const LOCAL_FILE_RECENSIONI = path.join(os.tmpdir(), "risvegliarsi-recensioni.json");
+
+async function readLocalRecensioni(): Promise<Recensione[]> {
+  try {
+    const raw = await fs.readFile(LOCAL_FILE_RECENSIONI, "utf-8");
+    return JSON.parse(raw);
+  } catch {
+    return [];
+  }
+}
+
+async function writeLocalRecensioni(data: Recensione[]) {
+  await fs.writeFile(LOCAL_FILE_RECENSIONI, JSON.stringify(data, null, 2), "utf-8");
+}
+
+export async function getRecensioni(): Promise<Recensione[]> {
+  if (hasUpstash()) {
+    const redis = getRedis();
+    const data = await redis.get<Recensione[]>(KEY_RECENSIONI);
+    return data ?? [];
+  }
+  return readLocalRecensioni();
+}
+
+export async function setRecensioni(data: Recensione[]): Promise<void> {
+  if (hasUpstash()) {
+    const redis = getRedis();
+    await redis.set(KEY_RECENSIONI, data);
+    return;
+  }
+  await writeLocalRecensioni(data);
+}
