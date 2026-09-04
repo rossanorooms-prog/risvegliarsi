@@ -3,7 +3,8 @@ import { getOccupazioni, setOccupazioni, type Occupazioni } from "@/lib/storage"
 import { isAdmin } from "@/lib/auth";
 import { camere } from "@/data/config";
 
-const SLUG_VALIDI = camere.map((c) => c.slug);
+const SLUG_VALIDI: string[] = camere.map((c) => c.slug);
+const MASSIMO_NOTTI = 90; // limite di sicurezza per evitare intervalli abnormi per errore
 
 // Versione "pubblica" del calendario: solo occupata/libera, mai i dettagli
 // privati sull'ospite (nome, note, numero persone).
@@ -14,6 +15,18 @@ function versionePubblica(occupazioni: Occupazioni): Occupazioni {
     for (const [data, info] of Object.entries(giorni)) {
       risultato[camera][data] = { occupata: info.occupata };
     }
+  }
+  return risultato;
+}
+
+// Genera l'elenco di date ISO da inizio a fine, inclusi entrambi gli estremi.
+function elencoDate(inizio: string, fine: string): string[] {
+  const risultato: string[] = [];
+  const cursore = new Date(`${inizio}T00:00:00Z`);
+  const ultimo = new Date(`${fine}T00:00:00Z`);
+  while (cursore <= ultimo && risultato.length <= MASSIMO_NOTTI) {
+    risultato.push(cursore.toISOString().slice(0, 10));
+    cursore.setUTCDate(cursore.getUTCDate() + 1);
   }
   return risultato;
 }
@@ -40,13 +53,22 @@ export async function POST(req: NextRequest) {
   if (!body) {
     return NextResponse.json({ ok: false, error: "Richiesta non valida" }, { status: 400 });
   }
-  const { camera, data, occupata, nome, persone, note } = body;
+  const { camera, data, dataFine, occupata, nome, persone, note } = body;
 
   if (!SLUG_VALIDI.includes(camera)) {
     return NextResponse.json({ ok: false, error: "Camera non valida" }, { status: 400 });
   }
   if (!/^\d{4}-\d{2}-\d{2}$/.test(data)) {
     return NextResponse.json({ ok: false, error: "Data non valida" }, { status: 400 });
+  }
+  const fineEffettiva = typeof dataFine === "string" && /^\d{4}-\d{2}-\d{2}$/.test(dataFine) ? dataFine : data;
+  if (fineEffettiva < data) {
+    return NextResponse.json({ ok: false, error: "La data finale precede quella iniziale" }, { status: 400 });
+  }
+
+  const giorniDaAggiornare = elencoDate(data, fineEffettiva);
+  if (giorniDaAggiornare.length > MASSIMO_NOTTI) {
+    return NextResponse.json({ ok: false, error: `L'intervallo è troppo lungo (massimo ${MASSIMO_NOTTI} notti)` }, { status: 400 });
   }
 
   try {
@@ -59,14 +81,18 @@ export async function POST(req: NextRequest) {
       const personePulite =
         Number.isInteger(persone) && persone > 0 && persone < 100 ? persone : undefined;
 
-      occupazioni[camera][data] = {
-        occupata: true,
-        ...(nomePulito ? { nome: nomePulito } : {}),
-        ...(personePulite ? { persone: personePulite } : {}),
-        ...(notePulite ? { note: notePulite } : {}),
-      };
+      for (const dataGiorno of giorniDaAggiornare) {
+        occupazioni[camera][dataGiorno] = {
+          occupata: true,
+          ...(nomePulito ? { nome: nomePulito } : {}),
+          ...(personePulite ? { persone: personePulite } : {}),
+          ...(notePulite ? { note: notePulite } : {}),
+        };
+      }
     } else {
-      delete occupazioni[camera][data];
+      for (const dataGiorno of giorniDaAggiornare) {
+        delete occupazioni[camera][dataGiorno];
+      }
     }
 
     await setOccupazioni(occupazioni);

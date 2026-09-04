@@ -24,7 +24,7 @@ function formattaData(iso: string) {
   return `${d} ${MESI_LUNGHI[m - 1]} ${y}`;
 }
 
-// Pannello di dettaglio per un singolo giorno: occupata/libera + note facoltative.
+// Pannello di dettaglio: occupata/libera + intervallo di date + note facoltative.
 function PannelloGiorno({
   cameraNome,
   dataISO,
@@ -35,26 +35,31 @@ function PannelloGiorno({
   cameraNome: string;
   dataISO: string;
   infoIniziale?: GiornoInfo;
-  onSalva: (info: GiornoInfo | null) => void;
+  onSalva: (info: GiornoInfo | null, dataFine: string) => void;
   onChiudi: () => void;
 }) {
   const [occupata, setOccupata] = useState(infoIniziale?.occupata ?? true);
+  const [dataFine, setDataFine] = useState(dataISO);
   const [nome, setNome] = useState(infoIniziale?.nome ?? "");
   const [persone, setPersone] = useState(infoIniziale?.persone ? String(infoIniziale.persone) : "");
   const [note, setNote] = useState(infoIniziale?.note ?? "");
 
   function salva() {
+    const fineEffettiva = dataFine < dataISO ? dataISO : dataFine;
     if (!occupata) {
-      onSalva(null); // libera il giorno, nessun dettaglio da conservare
+      onSalva(null, fineEffettiva); // libera l'intervallo, nessun dettaglio da conservare
       return;
     }
     const personeNum = parseInt(persone, 10);
-    onSalva({
-      occupata: true,
-      ...(nome.trim() ? { nome: nome.trim() } : {}),
-      ...(Number.isInteger(personeNum) && personeNum > 0 ? { persone: personeNum } : {}),
-      ...(note.trim() ? { note: note.trim() } : {}),
-    });
+    onSalva(
+      {
+        occupata: true,
+        ...(nome.trim() ? { nome: nome.trim() } : {}),
+        ...(Number.isInteger(personeNum) && personeNum > 0 ? { persone: personeNum } : {}),
+        ...(note.trim() ? { note: note.trim() } : {}),
+      },
+      fineEffettiva
+    );
   }
 
   return (
@@ -64,7 +69,7 @@ function PannelloGiorno({
         onClick={(e) => e.stopPropagation()}
       >
         <p className="font-display text-xl text-inchiostro">{cameraNome}</p>
-        <p className="font-body text-sm text-inchiostro/50">{formattaData(dataISO)}</p>
+        <p className="font-body text-sm text-inchiostro/50">Dal {formattaData(dataISO)}</p>
 
         <label className="mt-5 flex items-center gap-2 font-body text-sm text-inchiostro/80">
           <input
@@ -73,8 +78,24 @@ function PannelloGiorno({
             onChange={(e) => setOccupata(e.target.checked)}
             className="h-4 w-4"
           />
-          Camera occupata in questa data
+          Camera occupata in queste date
         </label>
+
+        <div className="mt-4">
+          <label className="block font-body text-xs uppercase tracking-wide text-inchiostro/50">
+            Fino al (incluso) — lascia invariato per un solo giorno
+          </label>
+          <input
+            type="date"
+            min={dataISO}
+            value={dataFine}
+            onChange={(e) => setDataFine(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-inchiostro/20 px-3 py-2 font-body text-sm text-inchiostro focus:outline-none focus-visible:ring-2 focus-visible:ring-rosso"
+          />
+          <p className="mt-1 font-body text-xs text-inchiostro/40">
+            Utile per un soggiorno di più notti: imposti una sola volta tutto l&apos;intervallo.
+          </p>
+        </div>
 
         {occupata && (
           <div className="mt-4 space-y-4">
@@ -185,17 +206,27 @@ export default function AdminPage() {
     setAutenticato(false);
   }
 
-  async function salvaGiorno(info: GiornoInfo | null) {
+  async function salvaGiorno(info: GiornoInfo | null, dataFine: string) {
     if (!selezione) return;
     const { camera: cameraSlug, data: dataISO } = selezione;
     setErroreSalvataggio("");
     setSelezione(null);
 
-    // aggiornamento ottimistico
+    // elenco di tutte le date dell'intervallo, per l'aggiornamento ottimistico
+    const giorniIntervallo: string[] = [];
+    const cursore = new Date(`${dataISO}T00:00:00Z`);
+    const ultimo = new Date(`${dataFine}T00:00:00Z`);
+    while (cursore <= ultimo) {
+      giorniIntervallo.push(cursore.toISOString().slice(0, 10));
+      cursore.setUTCDate(cursore.getUTCDate() + 1);
+    }
+
     setOccupazioni((prev) => {
       const copia = { ...prev, [cameraSlug]: { ...(prev[cameraSlug] || {}) } };
-      if (info) copia[cameraSlug][dataISO] = info;
-      else delete copia[cameraSlug][dataISO];
+      for (const g of giorniIntervallo) {
+        if (info) copia[cameraSlug][g] = info;
+        else delete copia[cameraSlug][g];
+      }
       return copia;
     });
 
@@ -206,6 +237,7 @@ export default function AdminPage() {
         body: JSON.stringify({
           camera: cameraSlug,
           data: dataISO,
+          dataFine,
           occupata: Boolean(info?.occupata),
           nome: info?.nome,
           persone: info?.persone,
