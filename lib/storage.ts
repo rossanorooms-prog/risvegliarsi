@@ -3,9 +3,34 @@ import { promises as fs } from "fs";
 import path from "path";
 import os from "os";
 
-// Struttura salvata: { "verde": { "2026-08-20": true, ... }, "senape": { ... } }
-// true = occupata. Le date assenti sono considerate libere.
-export type Occupazioni = Record<string, Record<string, boolean>>;
+// Struttura salvata per ogni giorno occupato: dettagli opzionali sulla
+// prenotazione. Le date assenti dalla mappa sono considerate libere.
+export type GiornoInfo = {
+  occupata: boolean;
+  nome?: string; // nome dell'ospite
+  persone?: number;
+  note?: string; // es. orario di check-in/check-out, richieste particolari
+};
+export type Occupazioni = Record<string, Record<string, GiornoInfo>>;
+
+// Dati salvati prima dell'introduzione delle note: { "2026-08-20": true }.
+// Li normalizziamo automaticamente in lettura, senza bisogno di migrazioni.
+function normalizza(dati: unknown): Occupazioni {
+  const risultato: Occupazioni = {};
+  if (!dati || typeof dati !== "object") return risultato;
+  for (const [camera, giorni] of Object.entries(dati as Record<string, unknown>)) {
+    if (!giorni || typeof giorni !== "object") continue;
+    risultato[camera] = {};
+    for (const [data, valore] of Object.entries(giorni as Record<string, unknown>)) {
+      if (typeof valore === "boolean") {
+        risultato[camera][data] = { occupata: valore };
+      } else if (valore && typeof valore === "object") {
+        risultato[camera][data] = { occupata: true, ...(valore as object) };
+      }
+    }
+  }
+  return risultato;
+}
 
 const KEY = "risvegliarsi:occupazioni";
 // Su Vercel il filesystem del progetto è di sola lettura: l'unica cartella
@@ -44,9 +69,9 @@ export async function getOccupazioni(): Promise<Occupazioni> {
   if (hasUpstash()) {
     const redis = getRedis();
     const data = await redis.get<Occupazioni>(KEY);
-    return data ?? {};
+    return normalizza(data ?? {});
   }
-  return readLocal();
+  return normalizza(await readLocal());
 }
 
 export async function setOccupazioni(data: Occupazioni): Promise<void> {

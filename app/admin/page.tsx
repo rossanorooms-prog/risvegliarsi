@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { camere } from "@/data/config";
-import CalendarMonth from "@/components/CalendarMonth";
+import CalendarMonth, { type GiornoInfo } from "@/components/CalendarMonth";
 
-type Occupazioni = Record<string, Record<string, boolean>>;
+type Occupazioni = Record<string, Record<string, GiornoInfo>>;
 type Recensione = {
   id: string;
   nome: string;
@@ -14,6 +14,129 @@ type Recensione = {
   approvata: boolean;
 };
 
+const MESI_LUNGHI = [
+  "gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno",
+  "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre",
+];
+
+function formattaData(iso: string) {
+  const [y, m, d] = iso.split("-").map(Number);
+  return `${d} ${MESI_LUNGHI[m - 1]} ${y}`;
+}
+
+// Pannello di dettaglio per un singolo giorno: occupata/libera + note facoltative.
+function PannelloGiorno({
+  cameraNome,
+  dataISO,
+  infoIniziale,
+  onSalva,
+  onChiudi,
+}: {
+  cameraNome: string;
+  dataISO: string;
+  infoIniziale?: GiornoInfo;
+  onSalva: (info: GiornoInfo | null) => void;
+  onChiudi: () => void;
+}) {
+  const [occupata, setOccupata] = useState(infoIniziale?.occupata ?? true);
+  const [nome, setNome] = useState(infoIniziale?.nome ?? "");
+  const [persone, setPersone] = useState(infoIniziale?.persone ? String(infoIniziale.persone) : "");
+  const [note, setNote] = useState(infoIniziale?.note ?? "");
+
+  function salva() {
+    if (!occupata) {
+      onSalva(null); // libera il giorno, nessun dettaglio da conservare
+      return;
+    }
+    const personeNum = parseInt(persone, 10);
+    onSalva({
+      occupata: true,
+      ...(nome.trim() ? { nome: nome.trim() } : {}),
+      ...(Number.isInteger(personeNum) && personeNum > 0 ? { persone: personeNum } : {}),
+      ...(note.trim() ? { note: note.trim() } : {}),
+    });
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-inchiostro/50 p-4" onClick={onChiudi}>
+      <div
+        className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <p className="font-display text-xl text-inchiostro">{cameraNome}</p>
+        <p className="font-body text-sm text-inchiostro/50">{formattaData(dataISO)}</p>
+
+        <label className="mt-5 flex items-center gap-2 font-body text-sm text-inchiostro/80">
+          <input
+            type="checkbox"
+            checked={occupata}
+            onChange={(e) => setOccupata(e.target.checked)}
+            className="h-4 w-4"
+          />
+          Camera occupata in questa data
+        </label>
+
+        {occupata && (
+          <div className="mt-4 space-y-4">
+            <div>
+              <label className="block font-body text-xs uppercase tracking-wide text-inchiostro/50">
+                Nome ospite (facoltativo)
+              </label>
+              <input
+                type="text"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                placeholder="Es. Mario Rossi"
+                className="mt-1 w-full rounded-lg border border-inchiostro/20 px-3 py-2 font-body text-sm text-inchiostro focus:outline-none focus-visible:ring-2 focus-visible:ring-rosso"
+              />
+            </div>
+            <div>
+              <label className="block font-body text-xs uppercase tracking-wide text-inchiostro/50">
+                Numero persone (facoltativo)
+              </label>
+              <input
+                type="number"
+                min={1}
+                value={persone}
+                onChange={(e) => setPersone(e.target.value)}
+                placeholder="Es. 2"
+                className="mt-1 w-full rounded-lg border border-inchiostro/20 px-3 py-2 font-body text-sm text-inchiostro focus:outline-none focus-visible:ring-2 focus-visible:ring-rosso"
+              />
+            </div>
+            <div>
+              <label className="block font-body text-xs uppercase tracking-wide text-inchiostro/50">
+                Note (facoltativo)
+              </label>
+              <textarea
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                rows={3}
+                placeholder="Es. Check-in ore 18, check-out ore 10"
+                className="mt-1 w-full rounded-lg border border-inchiostro/20 px-3 py-2 font-body text-sm text-inchiostro focus:outline-none focus-visible:ring-2 focus-visible:ring-rosso"
+              />
+            </div>
+          </div>
+        )}
+
+        <div className="mt-6 flex justify-end gap-3">
+          <button
+            onClick={onChiudi}
+            className="font-body text-sm text-inchiostro/60 hover:text-inchiostro"
+          >
+            Annulla
+          </button>
+          <button
+            onClick={salva}
+            className="rounded-full bg-inchiostro px-5 py-2 font-body text-sm uppercase tracking-widest2 text-crema hover:bg-inchiostro/90"
+          >
+            Salva
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminPage() {
   const [autenticato, setAutenticato] = useState<boolean | null>(null);
   const [password, setPassword] = useState("");
@@ -22,6 +145,7 @@ export default function AdminPage() {
   const [erroreSalvataggio, setErroreSalvataggio] = useState("");
   const [recensioni, setRecensioni] = useState<Recensione[]>([]);
   const [erroreRecensioni, setErroreRecensioni] = useState("");
+  const [selezione, setSelezione] = useState<{ camera: string; data: string } | null>(null);
 
   useEffect(() => {
     fetch("/api/admin-auth")
@@ -61,13 +185,16 @@ export default function AdminPage() {
     setAutenticato(false);
   }
 
-  async function toggle(cameraSlug: string, dataISO: string, nuovoStato: boolean) {
+  async function salvaGiorno(info: GiornoInfo | null) {
+    if (!selezione) return;
+    const { camera: cameraSlug, data: dataISO } = selezione;
     setErroreSalvataggio("");
+    setSelezione(null);
 
     // aggiornamento ottimistico
     setOccupazioni((prev) => {
       const copia = { ...prev, [cameraSlug]: { ...(prev[cameraSlug] || {}) } };
-      if (nuovoStato) copia[cameraSlug][dataISO] = true;
+      if (info) copia[cameraSlug][dataISO] = info;
       else delete copia[cameraSlug][dataISO];
       return copia;
     });
@@ -76,7 +203,14 @@ export default function AdminPage() {
       const res = await fetch("/api/calendar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ camera: cameraSlug, data: dataISO, occupata: nuovoStato }),
+        body: JSON.stringify({
+          camera: cameraSlug,
+          data: dataISO,
+          occupata: Boolean(info?.occupata),
+          nome: info?.nome,
+          persone: info?.persone,
+          note: info?.note,
+        }),
       });
       const body = await res.json().catch(() => null);
 
@@ -84,7 +218,6 @@ export default function AdminPage() {
         setErroreSalvataggio(
           body?.error || "Non sono riuscito a salvare la modifica. Riprova tra poco."
         );
-        // ripristino lo stato reale dal server
         const check = await fetch("/api/calendar").then((r) => r.json());
         if (check.ok) setOccupazioni(check.data);
       }
@@ -95,7 +228,6 @@ export default function AdminPage() {
 
   async function modera(id: string, azione: "approva" | "elimina") {
     setErroreRecensioni("");
-    // aggiornamento ottimistico
     setRecensioni((prev) =>
       azione === "elimina"
         ? prev.filter((r) => r.id !== id)
@@ -148,6 +280,8 @@ export default function AdminPage() {
     );
   }
 
+  const cameraSelezionata = selezione ? camere.find((c) => c.slug === selezione.camera) : undefined;
+
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
       <div className="flex items-center justify-between">
@@ -160,8 +294,29 @@ export default function AdminPage() {
         </button>
       </div>
       <p className="mt-3 font-body text-inchiostro/60">
-        Clicca su un giorno per segnarlo come occupato o libero. Le modifiche si salvano automaticamente.
+        Clicca su un giorno per segnarlo occupato o libero, e aggiungere facoltativamente nome
+        ospite, numero di persone e note (check-in, check-out, ecc). Le modifiche si salvano
+        automaticamente.
       </p>
+
+      <div className="mt-4">
+        <a
+          href="/api/ical/verde"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mr-5 font-body text-xs uppercase tracking-widest2 text-inchiostro/50 underline hover:text-rosso"
+        >
+          Esporta calendario Alba (.ics)
+        </a>
+        <a
+          href="/api/ical/senape"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-body text-xs uppercase tracking-widest2 text-inchiostro/50 underline hover:text-rosso"
+        >
+          Esporta calendario Tramonto (.ics)
+        </a>
+      </div>
 
       {erroreSalvataggio && (
         <div className="mt-6 rounded-md border border-rosso/30 bg-rosso/5 px-4 py-3 font-body text-sm text-rosso">
@@ -171,19 +326,29 @@ export default function AdminPage() {
 
       <div className="mt-10 grid gap-10 sm:grid-cols-2">
         {camere.map((c) => {
-          const date = new Set(Object.keys(occupazioni[c.slug] || {}));
+          const giorniCamera = occupazioni[c.slug] || {};
           return (
             <div key={c.slug}>
               <p className="mb-3 font-display text-2xl text-inchiostro">{c.nome}</p>
               <CalendarMonth
-                occupate={date}
+                giorni={giorniCamera}
                 editabile
-                onToggle={(dataISO, nuovoStato) => toggle(c.slug, dataISO, nuovoStato)}
+                onSelectGiorno={(dataISO) => setSelezione({ camera: c.slug, data: dataISO })}
               />
             </div>
           );
         })}
       </div>
+
+      {selezione && cameraSelezionata && (
+        <PannelloGiorno
+          cameraNome={cameraSelezionata.nome}
+          dataISO={selezione.data}
+          infoIniziale={occupazioni[selezione.camera]?.[selezione.data]}
+          onSalva={salvaGiorno}
+          onChiudi={() => setSelezione(null)}
+        />
+      )}
 
       <div className="mx-auto mt-16 h-px w-full bg-inchiostro/10" />
 

@@ -8,6 +8,8 @@ const MESI = [
 ];
 const GIORNI = ["L", "M", "M", "G", "V", "S", "D"];
 
+export type GiornoInfo = { occupata: boolean; nome?: string; persone?: number; note?: string };
+
 function toISO(y: number, m: number, d: number) {
   const mm = String(m + 1).padStart(2, "0");
   const dd = String(d).padStart(2, "0");
@@ -15,13 +17,13 @@ function toISO(y: number, m: number, d: number) {
 }
 
 export default function CalendarMonth({
-  occupate,
+  giorni,
   editabile = false,
-  onToggle,
+  onSelectGiorno,
 }: {
-  occupate: Set<string>;
+  giorni: Record<string, GiornoInfo>;
   editabile?: boolean;
-  onToggle?: (dataISO: string, nuovoStato: boolean) => void;
+  onSelectGiorno?: (dataISO: string) => void;
 }) {
   const oggi = new Date();
   const [anno, setAnno] = useState(oggi.getFullYear());
@@ -80,7 +82,9 @@ export default function CalendarMonth({
         {celle.map((giorno, i) => {
           if (giorno === null) return <div key={i} />;
           const dataISO = toISO(anno, mese, giorno);
-          const occupata = occupate.has(dataISO);
+          const info = giorni[dataISO];
+          const occupata = Boolean(info?.occupata);
+          const haDettagli = Boolean(info?.nome || info?.note || info?.persone);
           const passato = dataISO < oggiISO;
 
           const base = "relative aspect-square rounded-md font-body text-sm flex items-center justify-center transition-colors border";
@@ -89,16 +93,21 @@ export default function CalendarMonth({
             : "bg-green-50 border-green-200 text-green-700 hover:bg-green-100";
           if (passato) stile += " opacity-40";
 
+          const puntino = haDettagli && (
+            <span className="absolute bottom-1 right-1 h-1.5 w-1.5 rounded-full bg-oro" />
+          );
+
           if (editabile) {
             return (
               <button
                 key={dataISO}
                 disabled={passato}
-                onClick={() => onToggle?.(dataISO, !occupata)}
+                onClick={() => onSelectGiorno?.(dataISO)}
                 className={`${base} ${stile} ${passato ? "cursor-not-allowed" : "cursor-pointer"}`}
-                title={occupata ? "Segna come libera" : "Segna come occupata"}
+                title={info?.nome ? `${info.nome}${info.note ? " — " + info.note : ""}` : undefined}
               >
                 {giorno}
+                {puntino}
               </button>
             );
           }
@@ -111,13 +120,18 @@ export default function CalendarMonth({
         })}
       </div>
 
-      <div className="mt-4 flex items-center justify-center gap-5 font-body text-xs text-inchiostro/50">
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-body text-xs text-inchiostro/50">
         <span className="flex items-center gap-1.5">
           <span className="h-3 w-3 rounded-sm border border-green-300 bg-green-50" /> Libera
         </span>
         <span className="flex items-center gap-1.5">
           <span className="h-3 w-3 rounded-sm border border-red-300 bg-red-100" /> Occupata
         </span>
+        {editabile && (
+          <span className="flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-oro" /> Con note
+          </span>
+        )}
       </div>
     </div>
   );

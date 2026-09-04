@@ -2,22 +2,22 @@
 
 import { useEffect, useState } from "react";
 import { camere } from "@/data/config";
-import CalendarMonth from "@/components/CalendarMonth";
+import CalendarMonth, { type GiornoInfo } from "@/components/CalendarMonth";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
-type Occupazioni = Record<string, Record<string, boolean>>;
+type Occupazioni = Record<string, Record<string, GiornoInfo>>;
 
 function toISO(d: Date) {
   return d.toISOString().slice(0, 10);
 }
 
-function nottiLibereProssimi30(occupateCamera: Record<string, boolean> | undefined) {
+function nottiLibereProssimi30(giorniCamera: Record<string, GiornoInfo> | undefined) {
   const oggi = new Date();
   let libere = 0;
   for (let i = 0; i < 30; i++) {
     const d = new Date(oggi);
     d.setDate(oggi.getDate() + i);
-    if (!occupateCamera?.[toISO(d)]) libere++;
+    if (!giorniCamera?.[toISO(d)]?.occupata) libere++;
   }
   return libere;
 }
@@ -55,8 +55,8 @@ export default function DisponibilitaPage() {
       {caricato && (
         <div className="mt-14 grid gap-10 sm:grid-cols-2">
           {camere.map((c) => {
-            const date = new Set(Object.keys(occupazioni[c.slug] || {}));
-            const libere = nottiLibereProssimi30(occupazioni[c.slug]);
+            const giorniCamera = occupazioni[c.slug] || {};
+            const libere = nottiLibereProssimi30(giorniCamera);
             return (
               <div key={c.slug}>
                 <div className="mb-3 flex items-center justify-between">
@@ -67,7 +67,7 @@ export default function DisponibilitaPage() {
                     </span>
                   )}
                 </div>
-                <CalendarMonth occupate={date} />
+                <CalendarMonth giorni={giorniCamera} />
               </div>
             );
           })}
