@@ -42,13 +42,25 @@ const KEY = "risvegliarsi:occupazioni";
 const LOCAL_FILE = path.join(os.tmpdir(), "risvegliarsi-occupazioni.json");
 
 function hasUpstash() {
-  return Boolean(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN);
+  return Boolean(getUpstashUrl() && getUpstashToken());
+}
+
+// L'integrazione Vercel↔Upstash ha usato nel tempo nomi diversi per le
+// stesse variabili (UPSTASH_REDIS_REST_URL/TOKEN nella versione classica,
+// KV_REST_API_URL/TOKEN in quella più recente basata sul vecchio "Vercel
+// KV"). Controlliamo entrambi, così funziona indipendentemente da quale
+// versione dell'integrazione è stata usata per collegare il database.
+function getUpstashUrl() {
+  return process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
+}
+function getUpstashToken() {
+  return process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
 }
 
 function getRedis() {
   return new Redis({
-    url: process.env.UPSTASH_REDIS_REST_URL!,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+    url: getUpstashUrl()!,
+    token: getUpstashToken()!,
   });
 }
 
