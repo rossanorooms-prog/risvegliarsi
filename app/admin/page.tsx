@@ -161,6 +161,7 @@ function PannelloGiorno({
 export default function AdminPage() {
   const [autenticato, setAutenticato] = useState<boolean | null>(null);
   const [password, setPassword] = useState("");
+  const [passwordVisibile, setPasswordVisibile] = useState(false);
   const [errore, setErrore] = useState("");
   const [occupazioni, setOccupazioni] = useState<Occupazioni>({});
   const [erroreSalvataggio, setErroreSalvataggio] = useState("");
@@ -292,14 +293,33 @@ export default function AdminPage() {
       <div className="mx-auto max-w-sm px-6 py-24">
         <h1 className="text-center font-display text-3xl text-inchiostro">Area amministratore</h1>
         <form onSubmit={login} className="mt-8 space-y-4">
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            className="w-full rounded-lg border border-inchiostro/20 bg-white px-4 py-3 font-body text-inchiostro focus:outline-none focus-visible:ring-2 focus-visible:ring-rosso"
-            autoFocus
-          />
+          <div className="relative">
+            <input
+              type={passwordVisibile ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              className="w-full rounded-lg border border-inchiostro/20 bg-white px-4 py-3 pr-11 font-body text-inchiostro focus:outline-none focus-visible:ring-2 focus-visible:ring-rosso"
+              autoFocus
+            />
+            <button
+              type="button"
+              onClick={() => setPasswordVisibile((v) => !v)}
+              aria-label={passwordVisibile ? "Nascondi password" : "Mostra password"}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-inchiostro/40 hover:text-inchiostro"
+            >
+              {passwordVisibile ? (
+                <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current stroke-2">
+                  <path d="M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8M9.4 5.4A9.5 9.5 0 0 1 12 5c5 0 9 4 10 7-.4 1.2-1.2 2.5-2.3 3.7M6.3 6.3C4.4 7.6 3 9.4 2 12c1 3 5 7 10 7 1.3 0 2.5-.2 3.6-.6" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current stroke-2">
+                  <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              )}
+            </button>
+          </div>
           {errore && <p className="font-body text-sm text-rosso">{errore}</p>}
           <button
             type="submit"
@@ -428,7 +448,11 @@ export default function AdminPage() {
                     </button>
                   )}
                   <button
-                    onClick={() => modera(r.id, "elimina")}
+                    onClick={() => {
+                      if (window.confirm("Sei sicuro di voler eliminare questa recensione? L'operazione non è reversibile.")) {
+                        modera(r.id, "elimina");
+                      }
+                    }}
                     className="rounded-full border border-rosso/40 px-4 py-1.5 font-body text-xs uppercase tracking-widest2 text-rosso hover:bg-rosso/5"
                   >
                     Elimina
