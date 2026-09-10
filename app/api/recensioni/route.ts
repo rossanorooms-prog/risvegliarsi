@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRecensioni, setRecensioni, type Recensione } from "@/lib/storage";
 import { isAdmin } from "@/lib/auth";
+import { notificaNuovaRecensione } from "@/lib/email";
 
 function generaId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -57,6 +58,13 @@ export async function POST(req: NextRequest) {
     const tutte = await getRecensioni();
     tutte.push(nuova);
     await setRecensioni(tutte);
+
+    // Notifica via email: non deve mai far fallire il salvataggio della
+    // recensione, quindi eventuali errori restano solo nei log.
+    notificaNuovaRecensione(nome, valutazione, testo).catch((err) =>
+      console.error("Errore invio notifica recensione:", err)
+    );
+
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("Errore salvataggio recensione:", err);
