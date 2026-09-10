@@ -4,6 +4,13 @@ import { site } from "@/data/config";
 // RESEND_API_KEY non è impostata, la funzione non fa nulla: il sito
 // continua a funzionare normalmente, semplicemente senza notifiche email
 // finché non viene configurata.
+// Dominio "apice" (senza www), quello effettivamente verificato su Resend
+// per l'invio: es. da www.risvegliarsibedebenessere.it diventa
+// risvegliarsibedebenessere.it.
+function dominioApice() {
+  return new URL(site.url).hostname.replace(/^www\./, "");
+}
+
 export async function inviaEmail(oggetto: string, corpoTesto: string) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
@@ -19,7 +26,7 @@ export async function inviaEmail(oggetto: string, corpoTesto: string) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: process.env.RESEND_FROM || `${site.nome} <notifiche@${new URL(site.url).hostname}>`,
+        from: process.env.RESEND_FROM || `${site.nome} <notifiche@${dominioApice()}>`,
         to: [site.email],
         subject: oggetto,
         text: corpoTesto,
