@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { site, titolari } from "@/data/config";
 
 const facebookUrl = "https://www.facebook.com/share/1K7nTnLnSc/";
@@ -27,7 +28,7 @@ export default function Footer() {
 
         <div className="mt-8 h-px w-16 bg-oro/50" />
 
-        <div className="mt-8 grid gap-8 font-body text-sm text-crema/70 sm:grid-cols-3">
+        <div className="mt-8 grid gap-8 font-body text-sm text-crema/70 sm:grid-cols-2">
           <div>
             <p className="text-crema/40">Dove siamo</p>
             <p className="mt-1">{site.indirizzo}</p>
@@ -52,25 +53,30 @@ export default function Footer() {
               </a>
             </p>
           </div>
-          <div>
-            <p className="text-crema/40">Informazioni legali</p>
-            <p className="mt-1 space-x-3">
-              <Link href="/privacy" className="hover:text-orochiaro">Privacy</Link>
-              <span className="text-crema/20">·</span>
-              <Link href="/cookie" className="hover:text-orochiaro">Cookie</Link>
-              <span className="text-crema/20">·</span>
-              <Link href="/recensioni" className="hover:text-orochiaro">Lascia una recensione</Link>
-            </p>
-          </div>
         </div>
 
-        <div className="mt-10 flex flex-col-reverse items-start justify-between gap-4 border-t border-crema/10 pt-6 sm:flex-row sm:items-center">
-          <p className="font-body text-xs text-crema/30">
+        <div className="mt-10 border-t border-crema/10 pt-6">
+          <p className="font-body text-xs text-crema/50 space-x-3">
+            <Link href="/privacy" className="hover:text-orochiaro">Privacy</Link>
+            <span className="text-crema/20">·</span>
+            <Link href="/cookie" className="hover:text-orochiaro">Cookie</Link>
+            <span className="text-crema/20">·</span>
+            <Link href="/recensioni" className="hover:text-orochiaro">Lascia una recensione</Link>
+          </p>
+
+          <p className="mt-4 font-body text-xs text-crema/30">
             © {new Date().getFullYear()} {site.nome}. Tutti i diritti riservati.
           </p>
-          <Link href="/admin" className="font-body text-xs text-crema/30 underline decoration-crema/20 underline-offset-4 hover:text-orochiaro">
-            Area riservata
-          </Link>
+
+          <a
+            href="https://omnirasoft.it"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex items-center gap-2 font-body text-xs text-crema/40 transition hover:text-crema/70"
+          >
+            Powered by
+            <Image src="/images/logo-omnirasoft.png" alt="Omnira Soft" width={100} height={21} />
+          </a>
         </div>
       </div>
     </footer>
