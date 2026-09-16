@@ -37,6 +37,7 @@ export default function Footer() {
             <p className="text-crema/40">Dati identificativi</p>
             <p className="mt-1">CIR: 078068-BEI-00004</p>
             <p className="mt-1">CIN: IT078068B4X9HRQYCH</p>
+            <p className="mt-1">P.IVA: 03440190787</p>
           </div>
           <div>
             <p className="text-crema/40">Contatti</p>
