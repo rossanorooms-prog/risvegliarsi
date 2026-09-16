@@ -28,10 +28,15 @@ export default function Footer() {
 
         <div className="mt-8 h-px w-16 bg-oro/50" />
 
-        <div className="mt-8 grid gap-8 font-body text-sm text-crema/70 sm:grid-cols-2">
+        <div className="mt-8 grid gap-8 font-body text-sm text-crema/70 sm:grid-cols-3">
           <div>
             <p className="text-crema/40">Dove siamo</p>
             <p className="mt-1">{site.indirizzo}</p>
+          </div>
+          <div>
+            <p className="text-crema/40">Dati identificativi</p>
+            <p className="mt-1">CIR: 078068-BEI-00004</p>
+            <p className="mt-1">CIN: IT078068B4X9HRQYCH</p>
           </div>
           <div>
             <p className="text-crema/40">Contatti</p>
