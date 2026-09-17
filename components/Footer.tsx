@@ -31,7 +31,14 @@ export default function Footer() {
         <div className="mt-8 grid gap-8 font-body text-sm text-crema/70 sm:grid-cols-3">
           <div>
             <p className="text-crema/40">Dove siamo</p>
-            <p className="mt-1">{site.indirizzo}</p>
+            <a
+              href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(site.indirizzo)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-1 inline-block hover:text-orochiaro"
+            >
+              {site.indirizzo}
+            </a>
           </div>
           <div>
             <p className="text-crema/40">Dati identificativi</p>
